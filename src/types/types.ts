@@ -2,14 +2,19 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  books: Book[];
+  books: BookInfo[];
 }
 
-export interface Book {
+export interface BookInfo {
   id: string;
   title: string;
   author: string;
   borrowedDate: Date;
   dueDate: Date;
   returned: boolean;
+}
+
+export interface BookReview {
+  bookId: string;
+  review: string;
 }

@@ -1,0 +1,23 @@
+.nav_container__sp {
+  position: fixed;
+  padding-right: 0.5rem;
+  bottom: 25%;
+  right: 0%;
+}
+
+.nav_item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav_item__text {
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: var(--foreground);
+}
+
+.active .nav_item__text {
+  color: rgb(0, 132, 255);
+  font-weight: bolder;
+}

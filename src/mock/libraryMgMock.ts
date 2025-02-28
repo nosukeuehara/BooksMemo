@@ -6,6 +6,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-02-01'),
     dueDate: new Date('2025-03-01'),
     returned: false,
+    review: 'This book is great!',
   },
   {
     id: '2',
@@ -14,6 +15,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-02-10'),
     dueDate: new Date('2025-03-10'),
     returned: true,
+    review: 'Very informative and practical.',
   },
   {
     id: '3',
@@ -22,6 +24,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-02-15'),
     dueDate: new Date('2025-03-15'),
     returned: false,
+    review: 'A deep dive into JavaScript.',
   },
   {
     id: '4',
@@ -30,6 +33,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-02-20'),
     dueDate: new Date('2025-03-20'),
     returned: false,
+    review: 'Comprehensive guide on TypeScript.',
   },
   {
     id: '5',
@@ -38,6 +42,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-02-25'),
     dueDate: new Date('2025-03-25'),
     returned: true,
+    review: 'Excellent resource for GraphQL.',
   },
   {
     id: '6',
@@ -46,6 +51,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-03-01'),
     dueDate: new Date('2025-04-01'),
     returned: true,
+    review: 'Great for full-stack development.',
   },
   {
     id: '7',
@@ -54,6 +60,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-03-05'),
     dueDate: new Date('2025-04-05'),
     returned: false,
+    review: 'Insightful for cloud-native applications.',
   },
   {
     id: '8',
@@ -62,6 +69,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-03-10'),
     dueDate: new Date('2025-04-10'),
     returned: false,
+    review: 'Good introduction to AI and ML.',
   },
   {
     id: '9',
@@ -70,6 +78,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-03-15'),
     dueDate: new Date('2025-04-15'),
     returned: false,
+    review: 'Essential for database design.',
   },
   {
     id: '10',
@@ -78,6 +87,7 @@ const mockBooks = [
     borrowedDate: new Date('2025-03-20'),
     dueDate: new Date('2025-04-20'),
     returned: true,
+    review: 'Practical guide for DevOps.',
   },
 ];
 
