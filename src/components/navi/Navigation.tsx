@@ -11,7 +11,6 @@ const naviItems = [
 
 const Navigation = () => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <nav className={styles.nav_container}>
       <ul>

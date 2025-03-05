@@ -1,11 +1,42 @@
 .bookCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: repeat(2, 1fr);
   width: 100%;
-  min-height: 10rem;
   padding: 0.4rem 0.7rem;
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: #fff;
   border: 1px solid #e5e5e5;
+  align-content: space-around;
+  justify-content: space-between;
+  align-items: end;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.bookCard:hover {
+  box-shadow: 0 0 0.5rem 0.1rem #e5e5e5;
+}
+
+.bookCard_title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.5rem;
+  transition: color 0.3s ease-in-out;
+}
+.bookCard_title:hover {
+  color: rgb(0, 132, 255);
+}
+
+.bookCard_author {
+  font-size: 1rem;
+}
+
+.bookCard_status {
+  font-size: 1rem;
+}
+
+.bookCard_dateContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

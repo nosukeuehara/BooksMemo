@@ -4,24 +4,31 @@ import React from "react";
 
 const BookCard = (props: { book: BookInfo }) => {
   return (
-    <a href={props.book.id} className={`${styles.bookCard}`}>
-      <div className={`${styles.bookCard__title}`}>
-        <h2>{props.book.title}</h2>
+    <a
+      href={props.book.id}
+      className={`${styles.bookCard}`}
+      aria-labelledby={`title-${props.book.id}`}
+      role="article"
+    >
+      <div
+        className={`${styles.bookInfo_contaier}`}
+        id={`title-${props.book.id}`}
+      >
+        <p className={`${styles.bookCard_title}`}>{props.book.title}</p>
+        <p className={`${styles.bookCard_author}`}>{props.book.author}</p>
+        <p className={`${styles.bookCard_status}`}>
+          {props.book.returned ? "返却済み" : "未返却"}
+        </p>
       </div>
-      <div className={`${styles.bookCard_authorContainer}`}>
-        <span>著者:</span>
-        <span>{props.book.author}</span>
-      </div>
-      <div className={`${styles.bookCard_borrowedDateContainer}`}>
-        <span>貸出日:</span>
-        <span>{props.book.borrowedDate.toLocaleString()}</span>
-      </div>
-      <div className={`${styles.bookCard_dueDateContainer}`}>
-        <span>返却日:</span>
-        <span>{props.book.dueDate.toLocaleString()}</span>
-      </div>
-      <div className={`${styles.bookCard_statusContainer}`}>
-        <span>{props.book.returned ? "返却済み" : "未返却"}</span>
+      <div>
+        <div className={`${styles.bookCard_borrowedDateContainer}`}>
+          <span>貸出日:</span>
+          <span>{props.book.borrowedDate.toLocaleDateString()}</span>
+        </div>
+        <div className={`${styles.bookCard_dueDateContainer}`}>
+          <span>返却日:</span>
+          <span>{props.book.dueDate.toLocaleDateString()}</span>
+        </div>
       </div>
     </a>
   );
