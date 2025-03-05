@@ -25,7 +25,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${styles.body_container__mid}`}
+        className={`${geistSans.variable} ${geistMono.variable} ${styles.body_container}`}
       >
         <Header />
         <Navigation />
