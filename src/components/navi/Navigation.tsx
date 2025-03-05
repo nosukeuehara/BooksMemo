@@ -13,7 +13,7 @@ const Navigation = () => {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <nav className={styles.nav_container__sp}>
+    <nav className={styles.nav_container}>
       <ul>
         {naviItems.map((item) => (
           <li

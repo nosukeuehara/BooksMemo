@@ -1,8 +1,15 @@
-.nav_container__sp {
+.nav_container {
   position: fixed;
-  padding-right: 0.5rem;
-  bottom: 25%;
-  right: 0%;
+  bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .nav_container {
+    position: relative;
+    padding-right: 0;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 .nav_item {
