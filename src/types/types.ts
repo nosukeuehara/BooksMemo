@@ -12,9 +12,6 @@ export interface BookInfo {
   borrowedDate: Date;
   dueDate: Date;
   returned: boolean;
+  review: string
 }
 
-export interface BookReview {
-  bookId: string;
-  review: string;
-}
