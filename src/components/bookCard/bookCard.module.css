@@ -1,21 +1,17 @@
 .bookCard {
   display: grid;
-  grid-template-columns: subgrid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 0.6fr 0.6fr 1fr 4fr;
   gap: 1rem;
   width: 100%;
   padding: 0.4rem 0.7rem;
   background-color: #fff;
   align-content: space-around;
   justify-content: space-between;
-  align-items: end;
-  transition: box-shadow 0.3s ease-in-out;
-  transition: color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .bookCard:hover {
   box-shadow: 0 0 0.5rem 0.1rem #e5e5e5;
-  color: rgb(0, 132, 255);
 }
 
 .bookCard_title {
@@ -46,7 +42,7 @@
 
 .bookHeader_items {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 0.6fr 0.6fr 1fr 4fr;
   gap: 1rem;
   width: 100%;
   padding: 0.4rem 0.7rem;

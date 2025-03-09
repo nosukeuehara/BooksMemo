@@ -22,6 +22,7 @@ export const BookCard = (props: { book: BookInfo }) => {
         <p className={`${styles.bookCard_status}`}>
           {props.book.returned ? "返却済み" : "未返却"}
         </p>
+        <div>{props.book.review}</div>
       </a>
     </li>
   );
@@ -36,6 +37,7 @@ export const BookHeader = () => {
         <p className={`${styles}`}>貸出日</p>
         <p className={`${styles}`}>返却日</p>
         <p className={`${styles}`}>ステータス</p>
+        <p>感想</p>
       </div>
     </li>
   );
