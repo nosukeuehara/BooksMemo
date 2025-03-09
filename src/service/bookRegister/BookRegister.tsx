@@ -1,58 +1,79 @@
 "use client";
 
 import React, { useState } from "react";
+import { Button, Group, Input, Textarea } from "@mantine/core";
+import styles from "./bookRegister.module.css";
+import { DatePickerInput } from "@mantine/dates";
 
-const BookRegister: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [borrowedDate, setBorrowedDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
-  const [review, setReview] = useState("");
+const BookRegister = () => {
+  const [title, setTitle] = useState("タイトルを入力");
+  const [author, setAuthor] = useState("著者を入力");
+  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
+  const [review, setReview] = useState("感想を入力してみよう");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ title, borrowedDate, returnDate, review });
+    console.log(title, author, value, review);
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            placeholder="タイトルを入力"
+          <Input
+            variant="unstyled"
+            size="xl"
+            placeholder={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="borrowedDate">貸出日</label>
-          <input
-            type="date"
-            id="borrowedDate"
-            value={borrowedDate}
-            onChange={(e) => setBorrowedDate(e.target.value)}
+          <Input
+            variant="unstyled"
+            size="lg"
+            placeholder={author}
+            onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="returnDate">返却日</label>
-          <input
-            type="date"
-            id="returnDate"
-            value={returnDate}
-            onChange={(e) => setReturnDate(e.target.value)}
+          <DatePickerInput
+            size="lg"
+            variant="unstyled"
+            type="range"
+            locale="ja"
+            valueFormat="YYYY/MM/DD"
+            placeholder="貸出日と返却日を選択してください"
+            value={value}
+            onChange={setValue}
           />
         </div>
         <div>
-          <label htmlFor="review">感想</label>
-          <textarea
-            id="review"
-            value={review}
+          <Textarea
+            variant="unstyled"
+            classNames={{
+              input: styles.reviewArea__padding,
+            }}
+            size="lg"
+            placeholder={review}
             onChange={(e) => setReview(e.target.value)}
           />
         </div>
-        <button type="submit">Submit</button>
       </form>
+      <Group justify="center">
+        <Button radius="xl" onClick={(e) => handleSubmit(e)}>
+          完了
+        </Button>
+        <Button
+          radius="xl"
+          variant="light"
+          color="gray"
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+        >
+          キャンセル
+        </Button>
+      </Group>
     </div>
   );
 };
