@@ -1,4 +1,4 @@
-import BookRegister from "@/service/BookRegister";
+import BookRegister from "@/service/bookRegister/BookRegister";
 import React from "react";
 
 const page = () => {

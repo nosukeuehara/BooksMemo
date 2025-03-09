@@ -1,30 +1,25 @@
 .bookCard {
   display: grid;
   grid-template-columns: subgrid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
   width: 100%;
   padding: 0.4rem 0.7rem;
-  border-radius: 0.5rem;
   background-color: #fff;
-  border: 1px solid #e5e5e5;
   align-content: space-around;
   justify-content: space-between;
   align-items: end;
   transition: box-shadow 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
 }
 
 .bookCard:hover {
   box-shadow: 0 0 0.5rem 0.1rem #e5e5e5;
+  color: rgb(0, 132, 255);
 }
 
 .bookCard_title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  line-height: 1.5rem;
-  transition: color 0.3s ease-in-out;
-}
-.bookCard_title:hover {
-  color: rgb(0, 132, 255);
+  font-size: 1rem;
 }
 
 .bookCard_author {
@@ -39,4 +34,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.cardItem {
+  list-style: none;
+}
+
+.bookHeader > * {
+  font-weight: bold;
+}
+
+.bookHeader_items {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  background-color: #fff;
+  align-content: space-around;
+  justify-content: space-between;
+  align-items: end;
+  font-size: 1.2rem;
 }

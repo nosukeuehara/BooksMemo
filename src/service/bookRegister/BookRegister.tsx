@@ -17,16 +17,16 @@ const BookRegister: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Book Title:</label>
           <input
             type="text"
             id="title"
             value={title}
+            placeholder="タイトルを入力"
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div>
-          <label htmlFor="borrowedDate">Borrowed Date:</label>
+          <label htmlFor="borrowedDate">貸出日</label>
           <input
             type="date"
             id="borrowedDate"
@@ -35,7 +35,7 @@ const BookRegister: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="returnDate">Return Date:</label>
+          <label htmlFor="returnDate">返却日</label>
           <input
             type="date"
             id="returnDate"
@@ -44,7 +44,7 @@ const BookRegister: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="review">Review:</label>
+          <label htmlFor="review">感想</label>
           <textarea
             id="review"
             value={review}
