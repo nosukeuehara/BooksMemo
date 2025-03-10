@@ -22,28 +22,38 @@ const Editor = ({ book }: { book: BookInfo }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.reviewArea}>
+      <form onSubmit={handleSubmit} className={`${styles.editorForm}`}>
+        <Switch
+          defaultChecked
+          labelPosition="left"
+          label={checked ? "返却済み" : "未返却"}
+          size="md"
+          checked={checked}
+          onChange={(event) => setChecked(event.currentTarget.checked)}
+        />
         <div>
-          <Input
-            variant="unstyled"
-            size="lg"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <Input.Wrapper label="タイトル">
+            <Input
+              size="lg"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Input.Wrapper>
         </div>
         <div>
-          <Input
-            variant="unstyled"
-            size="md"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
+          <Input.Wrapper label="著者名">
+            <Input
+              size="md"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+          </Input.Wrapper>
         </div>
         <div>
           <DatePickerInput
+            label="期間"
             size="md"
-            variant="unstyled"
             type="range"
             locale="ja"
             valueFormat="YYYY/MM/DD"
@@ -53,30 +63,18 @@ const Editor = ({ book }: { book: BookInfo }) => {
         </div>
         <div>
           <Textarea
-            variant="unstyled"
-            classNames={{
-              input: styles.reviewArea__padding,
-            }}
+            label="感想"
+            autosize
+            minRows={7}
             size="md"
             value={review}
             onChange={(e) => setReview(e.target.value)}
           />
         </div>
-        <Switch
-          defaultChecked
-          labelPosition="left"
-          label={checked ? "返却済み" : "未返却"}
-          size="md"
-          checked={checked}
-          onChange={(event) => setChecked(event.currentTarget.checked)}
-        />
       </form>
       <Group justify="center">
-        <Button radius="xl" onClick={(e) => handleSubmit(e)}>
-          完了
-        </Button>
+        <Button onClick={(e) => handleSubmit(e)}>完了</Button>
         <Button
-          radius="xl"
           variant="light"
           color="gray"
           onClick={(e) => {

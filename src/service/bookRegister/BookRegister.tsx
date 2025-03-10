@@ -49,6 +49,8 @@ const BookRegister = () => {
         </div>
         <div>
           <Textarea
+            autosize
+            minRows={7}
             variant="unstyled"
             classNames={{
               input: styles.reviewArea__padding,

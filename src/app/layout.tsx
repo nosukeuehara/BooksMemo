@@ -9,10 +9,15 @@ import {
   ColorSchemeScript,
   MantineProvider,
   mantineHtmlProps,
+  createTheme,
 } from "@mantine/core";
 import "@mantine/dates/styles.css";
 import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/ja";
+
+const theme = createTheme({
+  cursorType: "pointer",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +43,7 @@ export default async function RootLayout({
         <title>読書かんり</title>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MantineProvider>
+        <MantineProvider theme={theme}>
           <DatesProvider settings={{ firstDayOfWeek: 0, locale: "ja" }}>
             <Header />
             <Navigation />

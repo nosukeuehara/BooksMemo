@@ -1,3 +1,5 @@
-.reviewArea__padding {
-  padding: 0;
+.editorForm {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
