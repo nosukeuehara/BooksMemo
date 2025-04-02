@@ -5,8 +5,10 @@ import { Button, Group, Input, Switch, Textarea } from "@mantine/core";
 import styles from "./editor.module.css";
 import { DatePickerInput } from "@mantine/dates";
 import { BookInfo } from "@/types/types";
+import { useRouter } from "next/navigation";
 
 const Editor = ({ book }: { book: BookInfo }) => {
+  const router = useRouter();
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
   const [value, setValue] = useState<[Date | null, Date | null]>([
@@ -14,18 +16,90 @@ const Editor = ({ book }: { book: BookInfo }) => {
     book.dueDate,
   ]);
   const [review, setReview] = useState(book.review);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(book.returned);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(title, author, value, review);
+
+    if (!title || !author || !value[0] || !value[1]) {
+      setError("すべての必須フィールドを入力してください");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch(`/api/books/${book.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          author,
+          borrowedDate: value[0],
+          dueDate: value[1],
+          review,
+          returned: checked,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "本の更新に失敗しました");
+      }
+
+      router.refresh();
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("予期せぬエラーが発生しました");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm("この本を削除しますか？")) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch(`/api/books/${book.id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "本の削除に失敗しました");
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("予期せぬエラーが発生しました");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className={styles.reviewArea}>
+      {error && <div className={styles.error}>{error}</div>}
       <form onSubmit={handleSubmit} className={`${styles.editorForm}`}>
         <Switch
-          defaultChecked
           labelPosition="left"
           label={checked ? "返却済み" : "未返却"}
           size="md"
@@ -73,7 +147,9 @@ const Editor = ({ book }: { book: BookInfo }) => {
         </div>
       </form>
       <Group justify="center">
-        <Button onClick={(e) => handleSubmit(e)}>完了</Button>
+        <Button onClick={(e) => handleSubmit(e)} loading={isSubmitting}>
+          完了
+        </Button>
         <Button
           variant="light"
           color="gray"
@@ -82,6 +158,14 @@ const Editor = ({ book }: { book: BookInfo }) => {
           }}
         >
           キャンセル
+        </Button>
+        <Button
+          variant="outline"
+          color="red"
+          onClick={handleDelete}
+          disabled={isSubmitting}
+        >
+          削除
         </Button>
       </Group>
     </div>

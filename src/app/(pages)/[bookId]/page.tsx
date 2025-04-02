@@ -1,18 +1,30 @@
+// src/app/(pages)/[bookId]/page.tsx
 import BookInfoViewer from "@/components/bookInfoViewer/BookInfoViewer";
-import mockBooks from "@/mock/libraryMgMock";
 import { BookInfo } from "@/types/types";
+import prisma from "@/lib/prisma";
+import { notFound } from "next/navigation";
 import React from "react";
 
-const page = async ({ params }: { params: Promise<{ bookId: string }> }) => {
+const Page = async ({ params }: { params: { bookId: string } }) => {
   const { bookId } = await params;
-  // TODO:API call to get book info
-  const book: BookInfo | undefined = mockBooks.find(
-    async (book) => book.id === bookId
-  );
 
-  if (!book) {
-    return <div>Book not found</div>;
+  const bookData = await prisma.book.findUnique({
+    where: { id: bookId },
+  });
+
+  if (!bookData) {
+    return notFound();
   }
+
+  const book: BookInfo = {
+    id: bookData.id,
+    title: bookData.title,
+    author: bookData.author,
+    borrowedDate: bookData.borrowedDate,
+    dueDate: bookData.dueDate,
+    returned: bookData.returned,
+    review: bookData.review || "",
+  };
 
   return (
     <div>
@@ -21,4 +33,4 @@ const page = async ({ params }: { params: Promise<{ bookId: string }> }) => {
   );
 };
 
-export default page;
+export default Page;

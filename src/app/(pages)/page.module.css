@@ -131,7 +131,7 @@ a.secondary {
   .body_container {
     margin: 0 auto;
     max-width: 1336px;
-    padding: 0 min(20px, 5vw);
+    padding: 0 min(20px, 5vw) 20px;
   }
 }
 

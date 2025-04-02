@@ -14,6 +14,7 @@ import {
 import "@mantine/dates/styles.css";
 import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/ja";
+import { signout } from "./login/actions";
 
 const theme = createTheme({
   cursorType: "pointer",
@@ -48,6 +49,9 @@ export default async function RootLayout({
             <Header />
             <Navigation />
             <div className={`${styles.body_container}`}>{children}</div>
+            <form>
+              <button formAction={signout}>Sign out</button>
+            </form>
           </DatesProvider>
         </MantineProvider>
       </body>
