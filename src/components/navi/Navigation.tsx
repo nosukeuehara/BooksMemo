@@ -1,31 +1,44 @@
 "use client";
-// この例は既存のNavigationコンポーネントを拡張したもので、
-// 実際の実装では既存のNavigationコンポーネントを修正する必要があります
 
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import styles from "./navigation.module.css";
 
 const Navigation = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex gap-4 py-4">
-      <Link href="/" className={pathname === "/" ? "font-bold" : ""}>
-        ホーム
-      </Link>
-      <Link
-        href="/register"
-        className={pathname === "/register" ? "font-bold" : ""}
-      >
-        本を登録
-      </Link>
-      <Link
-        href="/profile"
-        className={pathname === "/profile" ? "font-bold" : ""}
-      >
-        プロフィール
-      </Link>
+    <nav className={styles.nav_container}>
+      <ul className={styles.nav_list}>
+        <li
+          className={`${styles.nav_item} ${
+            pathname === "/" ? styles.active : ""
+          }`}
+        >
+          <Link href="/" className={styles.nav_link}>
+            <span className={styles.nav_item__text}>ホーム</span>
+          </Link>
+        </li>
+        <li
+          className={`${styles.nav_item} ${
+            pathname === "/register" ? styles.active : ""
+          }`}
+        >
+          <Link href="/register" className={styles.nav_link}>
+            <span className={styles.nav_item__text}>本を登録</span>
+          </Link>
+        </li>
+        <li
+          className={`${styles.nav_item} ${
+            pathname === "/profile" ? styles.active : ""
+          }`}
+        >
+          <Link href="/profile" className={styles.nav_link}>
+            <span className={styles.nav_item__text}>プロフィール</span>
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 };
