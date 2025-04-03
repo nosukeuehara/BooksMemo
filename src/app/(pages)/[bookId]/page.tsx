@@ -4,12 +4,34 @@ import { BookInfo } from "@/types/types";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import React from "react";
+import { createClient } from "@/utils/supabase/server";
 
 const Page = async ({ params }: { params: { bookId: string } }) => {
-  const { bookId } = await params;
+  const { bookId } = params;
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const bookData = await prisma.book.findUnique({
-    where: { id: bookId },
+  if (!user) {
+    return notFound();
+  }
+
+  // Find the user in our database
+  const dbUser = await prisma.user.findUnique({
+    where: { email: user.email },
+  });
+
+  if (!dbUser) {
+    return notFound();
+  }
+
+  // Get the book only if it belongs to the authenticated user
+  const bookData = await prisma.book.findFirst({
+    where: {
+      id: bookId,
+      userId: dbUser.id,
+    },
   });
 
   if (!bookData) {

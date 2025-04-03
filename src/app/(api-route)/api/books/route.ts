@@ -1,26 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { createClient } from "@/utils/supabase/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const { title, author, borrowedDate, dueDate, review, userId } = await request.json();
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
 
-    if (!title || !author || !borrowedDate || !dueDate || !userId) {
+    if (!user) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
+    const { title, author, borrowedDate, dueDate, review } = await request.json();
+
+    if (!title || !author || !borrowedDate || !dueDate) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    const userExists = await prisma.user.findUnique({
-      where: { id: userId },
+    // Find or create user in our database based on Supabase auth
+    let dbUser = await prisma.user.findUnique({
+      where: { email: user.email },
     });
 
-    if (!userExists) {
-      return NextResponse.json(
-        { error: "User not found" },
-        { status: 404 }
-      );
+    if (!dbUser) {
+      dbUser = await prisma.user.create({
+        data: {
+          email: user.email!,
+          name: user.user_metadata.full_name || user.email!.split('@')[0],
+        },
+      });
     }
 
     const book = await prisma.book.create({
@@ -31,7 +45,7 @@ export async function POST(request: NextRequest) {
         dueDate: new Date(dueDate),
         review: review || "",
         user: {
-          connect: { id: userId }
+          connect: { id: dbUser.id }
         }
       },
     });
@@ -48,11 +62,40 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
+    // Find the user in our database
+    const dbUser = await prisma.user.findUnique({
+      where: { email: user.email },
+    });
+
+    if (!dbUser) {
+      return NextResponse.json([]);
+    }
+
+    // Get only books belonging to the authenticated user
     const books = await prisma.book.findMany({
+      where: {
+        userId: dbUser.id
+      },
       include: {
-        user: true,
+        user: {
+          select: {
+            name: true,
+            email: true
+          }
+        },
       },
     });
+
     return NextResponse.json(books);
   } catch (error) {
     console.error("Error fetching books:", error);

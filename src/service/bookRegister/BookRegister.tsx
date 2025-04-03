@@ -39,7 +39,6 @@ const BookRegister = () => {
           borrowedDate: value[0],
           dueDate: value[1],
           review,
-          userId: 616, // TODO:認証情報からID取得するようにする
         }),
       });
 
