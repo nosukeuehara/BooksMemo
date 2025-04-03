@@ -3,11 +3,13 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import prisma from '@/lib/prisma'
 
 /**
  * ログイン
  *
- * ログインが成功した場合はトップページへリダイレクトする。
+ * ログインが成功した場合は、プロフィールが存在すればトップページへ、
+ * 存在しなければプロフィール作成ページへリダイレクトする。
  * ログインに失敗した場合はエラーページへリダイレクトする。
  *
  * @param formData - フォームから受け取ったデータ
@@ -21,10 +23,23 @@ export async function login(formData: FormData) {
     password: formData.get('password') as string,
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  const { error, data: authData } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
     redirect('/error')
+  }
+
+  // ユーザーのプロフィールが存在するか確認
+  if (authData.user) {
+    const dbUser = await prisma.user.findUnique({
+      where: { email: authData.user.email },
+    })
+
+    // プロフィールが存在しない場合はプロフィール作成ページへ
+    if (!dbUser) {
+      revalidatePath('/profile', 'page')
+      redirect('/profile')
+    }
   }
 
   revalidatePath('/', 'layout')
@@ -34,7 +49,7 @@ export async function login(formData: FormData) {
 /**
  * サインアップ
  *
- * サインアップが成功した場合はトップページへリダイレクトする。
+ * サインアップが成功した場合はプロフィール作成ページへリダイレクトする。
  * サインアップに失敗した場合はエラーページへリダイレクトする。
  *
  * @param formData - フォームから受け取ったデータ
@@ -54,8 +69,8 @@ export async function signup(formData: FormData) {
     redirect('/error')
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  revalidatePath('/profile', 'page')
+  redirect('/profile')
 }
 
 /**
