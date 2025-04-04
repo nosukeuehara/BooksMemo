@@ -3,8 +3,12 @@ import styles from "./header.module.css";
 import { signout } from "@/app/(pages)/login/actions";
 import { User } from "@supabase/supabase-js";
 import Link from "next/link";
+import prisma from "@/lib/prisma";
 
 const Header = async ({ user }: { user: User | undefined }) => {
+  const dbUser = await prisma.user.findUnique({
+    where: { email: user!.email },
+  });
   return (
     <header className={styles.header_container}>
       <div className={styles.header_content}>
@@ -12,9 +16,9 @@ const Header = async ({ user }: { user: User | undefined }) => {
           <h1 className={styles.logo}>📚 Book Memo</h1>
         </Link>
 
-        {user ? (
+        {dbUser ? (
           <div className={styles.user_actions}>
-            <span className={styles.user_email}>{user.email}</span>
+            <span className={styles.user_email}>{dbUser.name}</span>
             <form>
               <button className={styles.signout_button} formAction={signout}>
                 Sign out

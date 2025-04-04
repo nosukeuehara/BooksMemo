@@ -26,6 +26,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const _params = await (params)
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -34,7 +35,7 @@ export async function GET(
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
 
-    const result = await checkBookOwnership(params.id, user.email!);
+    const result = await checkBookOwnership(_params.id, user.email!);
 
     if (!result?.book) {
       return NextResponse.json({ error: "Book not found or access denied" }, { status: 404 });
@@ -51,6 +52,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const _params = await (params)
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -59,7 +61,7 @@ export async function PUT(
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
 
-    const result = await checkBookOwnership(params.id, user.email!);
+    const result = await checkBookOwnership(_params.id, user.email!);
 
     if (!result?.book) {
       return NextResponse.json({ error: "Book not found or access denied" }, { status: 404 });
@@ -69,7 +71,7 @@ export async function PUT(
     const { title, author, borrowedDate, dueDate, review, returned } = body;
 
     const updatedBook = await prisma.book.update({
-      where: { id: params.id },
+      where: { id: _params.id },
       data: {
         title,
         author,
@@ -91,6 +93,7 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const _params = await (params)
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -99,14 +102,14 @@ export async function DELETE(
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
 
-    const result = await checkBookOwnership(params.id, user.email!);
+    const result = await checkBookOwnership(_params.id, user.email!);
 
     if (!result?.book) {
       return NextResponse.json({ error: "Book not found or access denied" }, { status: 404 });
     }
 
     await prisma.book.delete({
-      where: { id: params.id },
+      where: { id: _params.id },
     });
 
     return NextResponse.json({ message: "Book deleted successfully" });
