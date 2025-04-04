@@ -26,10 +26,12 @@ export async function GET(request: NextRequest) {
       type,
       token_hash,
     })
-    // エラーがない場合、リダイレクト先へ移動
+    // 確認成功した場合
     if (!error) {
-      redirectTo.searchParams.delete('next')
-      return NextResponse.redirect(redirectTo)
+      // ログインページにリダイレクト
+      redirectTo.pathname = '/login';
+      redirectTo.searchParams.set('message', 'メール確認が完了しました。ログインしてください。');
+      return NextResponse.redirect(redirectTo);
     }
   }
 
