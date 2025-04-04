@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 // このミドルウェアはサインイン後にプロフィールが存在しないユーザーを
 // プロフィール作成ページにリダイレクトします

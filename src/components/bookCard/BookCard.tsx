@@ -1,8 +1,8 @@
-import { BookInfo } from "@/types/types";
+import { BookViewData } from "@/types";
 import styles from "./bookCard.module.css";
 import React from "react";
 
-export const BookCard = (props: { book: BookInfo }) => {
+export const BookCard = (props: { book: BookViewData }) => {
   return (
     <li className={`${styles.cardItem}`}>
       <a

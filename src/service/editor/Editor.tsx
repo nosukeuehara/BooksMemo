@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { Button, Group, Input, Switch, Textarea } from "@mantine/core";
 import styles from "./editor.module.css";
 import { DatePickerInput } from "@mantine/dates";
-import { BookInfo } from "@/types/types";
 import { useRouter } from "next/navigation";
+import { BookViewData } from "@/types";
 
-const Editor = ({ book }: { book: BookInfo }) => {
+const Editor = ({ book }: { book: BookViewData }) => {
   const router = useRouter();
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
@@ -141,7 +141,7 @@ const Editor = ({ book }: { book: BookInfo }) => {
             autosize
             minRows={7}
             size="md"
-            value={review}
+            value={review ? review : ""}
             onChange={(e) => setReview(e.target.value)}
           />
         </div>

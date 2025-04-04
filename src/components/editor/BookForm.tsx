@@ -1,8 +1,8 @@
 "use client";
-import { BookInfo } from "@/types/types";
+import { BookViewData } from "@/types";
 import React, { useState } from "react";
 
-const BookForm = (props: { book: BookInfo }) => {
+const BookForm = (props: { book: BookViewData }) => {
   const { title, borrowedDate, dueDate } = props.book;
 
   // 初期値を useState にセット（YYYY-MM-DD 形式に変換）

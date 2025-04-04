@@ -2,14 +2,14 @@
 import { useDisclosure } from "@mantine/hooks";
 import { Drawer } from "@mantine/core";
 import { ReactNode } from "react";
-import { BookInfo } from "@/types/types";
 import Editor from "../editor/Editor";
+import { BookViewData } from "@/types";
 
 export function BookDrawer({
   book,
   children,
 }: {
-  book: BookInfo;
+  book: BookViewData;
   children: ReactNode;
 }) {
   const [opened, { open, close }] = useDisclosure(false);

@@ -1,10 +1,10 @@
 // src/app/(pages)/[bookId]/page.tsx
 import BookInfoViewer from "@/components/bookInfoViewer/BookInfoViewer";
-import { BookInfo } from "@/types/types";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import React from "react";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/lib/supabase/server";
+import { BookViewData } from "@/types";
 
 const Page = async ({ params }: { params: { bookId: string } }) => {
   const { bookId } = params;
@@ -38,7 +38,7 @@ const Page = async ({ params }: { params: { bookId: string } }) => {
     return notFound();
   }
 
-  const book: BookInfo = {
+  const book: BookViewData = {
     id: bookData.id,
     title: bookData.title,
     author: bookData.author,

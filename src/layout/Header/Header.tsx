@@ -5,7 +5,7 @@ import { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
 
-const Header = async ({ user }: { user: User | undefined }) => {
+const Header = async ({ user }: { user: User | null }) => {
   const dbUser = await prisma.user.findUnique({
     where: { email: user!.email },
   });
