@@ -1,54 +1,54 @@
 .bookCard {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 0.6fr 0.6fr 1fr 4fr;
-  gap: 1rem;
-  width: 100%;
-  padding: 0.4rem 0.7rem;
-  background-color: #fff;
-  align-content: space-around;
-  justify-content: space-between;
-  transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 0.7rem;
+  border-radius: var(--mantine-radius-s);
+  background-color: var(--mantine-color-white);
+  box-shadow: var(--mantine-shadow-sm);
+  transition: all 0.2s ease-in-out;
+  height: 200px;
 }
 
 .bookCard:hover {
-  box-shadow: 0 0 0.5rem 0.1rem #e5e5e5;
+  box-shadow: var(--mantine-shadow-md);
+  transform: translateY(-0.1rem);
 }
 
-.bookCard_title {
-  font-size: 1rem;
+.bookInfo_header {
+  margin-bottom: 0.3rem;
+  display: grid;
+  align-items: flex-end;
 }
 
-.bookCard_author {
-  font-size: 1rem;
+.dueDate_calender_icon {
+  color: var(--mantine-color-grape-6);
 }
 
-.bookCard_status {
-  font-size: 1rem;
+.book_title {
+  font-size: var(--mantine-font-size-xl);
+  margin-right: 1rem;
 }
 
-.bookCard_dateContainer {
+.book_author {
+  font-size: var(--mantine-font-size-sm);
+}
+
+.secondaryInfo {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.cardItem {
-  list-style: none;
+.dueDate_text {
+  font-size: var(--mantine-font-size-md);
 }
 
-.bookHeader > * {
-  font-weight: bold;
+.bookCard_status {
+  color: var(--mantine-color-gray-7);
+  margin-bottom: 0.3rem;
 }
 
-.bookHeader_items {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 0.6fr 0.6fr 1fr 4fr;
-  gap: 1rem;
-  width: 100%;
-  padding: 0.4rem 0.7rem;
-  background-color: #fff;
-  align-content: space-around;
-  justify-content: space-between;
-  align-items: end;
-  font-size: 1.2rem;
+.bookCard_dateContainer {
+}
+
+.bookInfo_base {
+  display: flex;
+  flex-direction: column;
 }

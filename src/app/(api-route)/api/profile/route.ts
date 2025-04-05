@@ -7,6 +7,7 @@ export async function GET() {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
+    console.log("User data:", user);
 
     if (!user) {
       return NextResponse.json(

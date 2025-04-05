@@ -6,6 +6,7 @@ import Link from "next/link";
 import prisma from "@/lib/prisma";
 
 const Header = async ({ user }: { user: User | null }) => {
+  if (!user) return null;
   const dbUser = await prisma.user.findUnique({
     where: { email: user!.email },
   });

@@ -1,0 +1,38 @@
+.templateSelector {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background-color: #f5f7fa;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.selectorTitle {
+  margin: 0 1rem 0 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.templateButton {
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.templateButton:hover {
+  background-color: #f8f9fa;
+}
+
+.templateButton.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}

@@ -1,44 +1,39 @@
+"use client";
 import { BookViewData } from "@/types";
 import styles from "./bookCard.module.css";
-import React from "react";
+import React, { useState } from "react";
+import { Calendar } from "lucide-react";
+import Link from "next/link";
 
 export const BookCard = (props: { book: BookViewData }) => {
+  const [template, selectedTemplate] = useState("defaultTemplate");
   return (
-    <li className={`${styles.cardItem}`}>
-      <a
-        href={props.book.id}
-        className={`${styles.bookCard}`}
-        aria-labelledby={`title-${props.book.id}`}
-        role="article"
-      >
-        <p className={`${styles.bookCard_title}`}>{props.book.title}</p>
-        <p className={`${styles.bookCard_author}`}>{props.book.author}</p>
-        <div className={`${styles.bookCard_borrowedDateContainer}`}>
-          <span>{props.book.borrowedDate.toLocaleDateString()}</span>
+    <Link
+      href={props.book.id}
+      className={`${styles.bookCard}`}
+      aria-labelledby={`title-${props.book.id}`}
+      role="article"
+    >
+      {/* ヘッダー情報 */}
+      <div className={`${styles.bookInfo_header}`}>
+        <div className={`${styles.primaryInfo}`}>
+          <span className={`${styles.book_title}`}>{props.book.title}</span>
+          <span className={`${styles.book_author}`}>{props.book.author}</span>
         </div>
-        <div className={`${styles.bookCard_dueDateContainer}`}>
-          <span>{props.book.dueDate.toLocaleDateString()}</span>
+        <div className={`${styles.secondaryInfo}`}>
+          <Calendar size={16} className={`${styles.dueDate_calender_icon}`} />
+          <span className={`${styles.dueDate_text}`}>
+            ~{props.book.dueDate.toLocaleDateString()}
+          </span>
         </div>
-        <p className={`${styles.bookCard_status}`}>
-          {props.book.returned ? "返却済み" : "未返却"}
-        </p>
-        <div>{props.book.review}</div>
-      </a>
-    </li>
-  );
-};
-
-export const BookHeader = () => {
-  return (
-    <li className={`${styles.cardItem} ${styles.bookHeader}`}>
-      <div className={`${styles.bookHeader_items}`}>
-        <p className={`${styles}`}>タイトル</p>
-        <p className={`${styles}`}>著者</p>
-        <p className={`${styles}`}>貸出日</p>
-        <p className={`${styles}`}>返却日</p>
-        <p className={`${styles}`}>ステータス</p>
-        <p>感想</p>
       </div>
-    </li>
+      {/* 基本情報 */}
+      <div className={`${styles.bookInfo_base}`}>
+        <div className={`${styles.bookCard_status}`}>
+          {props.book.returned ? "返却済み" : "未返却"}
+        </div>
+        <div>{props.book.review}</div>
+      </div>
+    </Link>
   );
 };

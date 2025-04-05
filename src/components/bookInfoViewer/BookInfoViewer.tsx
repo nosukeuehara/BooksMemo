@@ -1,9 +1,9 @@
-import { BookInfo } from "@/types/types";
 import React from "react";
 import styles from "./bookInfoViewer.module.css";
+import { BookViewData } from "@/types";
 
 interface BookInfoProps {
-  book: BookInfo;
+  book: BookViewData;
 }
 
 const BookInfoViewer = ({ book }: BookInfoProps) => {

@@ -1,8 +1,7 @@
-import { BookCard, BookHeader } from "@/components/bookCard/BookCard";
+import { BookCard } from "@/components/bookCard/BookCard";
 import BookGallery from "@/components/bookGallery/BookGallery";
 import { getUserBooks } from "@/lib/db";
 import { createClient } from "@/lib/supabase/server";
-import { BookDrawer } from "@/service/bookDrawer/BookDrawer";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -18,12 +17,9 @@ export default async function Home() {
 
   return (
     <div>
-      <BookHeader />
       <BookGallery>
         {books.map((book) => (
-          <BookDrawer key={book.id} book={book}>
-            <BookCard key={book.id} book={book} />
-          </BookDrawer>
+          <BookCard key={book.id} book={book} />
         ))}
       </BookGallery>
     </div>
