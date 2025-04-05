@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { BookViewData } from "@/types";
 
 const Page = async ({ params }: { params: { bookId: string } }) => {
-  const { bookId } = params;
+  const { bookId } = await params;
   const supabase = await createClient();
   const {
     data: { user },
