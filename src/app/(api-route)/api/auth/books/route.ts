@@ -4,8 +4,26 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: NextRequest) {
   try {
+    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+
+    // トークンを使用してユーザー情報を取得
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Invalid token or user not found" },
+        { status: 401 }
+      );
+    }
 
     if (!user) {
       return NextResponse.json(
@@ -60,10 +78,28 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+
+    // トークンを使用してユーザー情報を取得
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Invalid token or user not found" },
+        { status: 401 }
+      );
+    }
 
     if (!user) {
       return NextResponse.json(
@@ -72,7 +108,6 @@ export async function GET() {
       );
     }
 
-    // Find the user in our database
     const dbUser = await prisma.user.findUnique({
       where: { email: user.email },
     });
@@ -81,7 +116,6 @@ export async function GET() {
       return NextResponse.json([]);
     }
 
-    // Get only books belonging to the authenticated user
     const books = await prisma.book.findMany({
       where: {
         userId: dbUser.id
@@ -98,9 +132,9 @@ export async function GET() {
 
     return NextResponse.json(books);
   } catch (error) {
-    console.error("Error fetching books:", error);
+    console.error("Error fetching user:", error);
     return NextResponse.json(
-      { error: "Failed to fetch books" },
+      { error: "Failed to authenticate user" },
       { status: 500 }
     );
   }

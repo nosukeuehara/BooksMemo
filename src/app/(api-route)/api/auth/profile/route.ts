@@ -3,11 +3,28 @@ import prisma from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 
 // ユーザープロファイル取得
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    console.log("User data:", user);
+
+    // トークンを使用してユーザー情報を取得
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Invalid token or user not found" },
+        { status: 401 }
+      );
+    }
 
     if (!user) {
       return NextResponse.json(
@@ -49,8 +66,26 @@ export async function GET() {
 // ユーザープロファイル登録/更新
 export async function POST(request: NextRequest) {
   try {
+    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+
+    // トークンを使用してユーザー情報を取得
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Invalid token or user not found" },
+        { status: 401 }
+      );
+    }
 
     if (!user) {
       return NextResponse.json(

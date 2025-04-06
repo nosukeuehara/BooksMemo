@@ -6,7 +6,6 @@ import { Calendar } from "lucide-react";
 import Link from "next/link";
 
 export const BookCard = (props: { book: BookViewData }) => {
-  const [template, selectedTemplate] = useState("defaultTemplate");
   return (
     <Link
       href={props.book.id}
@@ -23,7 +22,7 @@ export const BookCard = (props: { book: BookViewData }) => {
         <div className={`${styles.secondaryInfo}`}>
           <Calendar size={16} className={`${styles.dueDate_calender_icon}`} />
           <span className={`${styles.dueDate_text}`}>
-            ~{props.book.dueDate.toLocaleDateString()}
+            {new Date(props.book.dueDate).toLocaleDateString("ja-JP")}
           </span>
         </div>
       </div>

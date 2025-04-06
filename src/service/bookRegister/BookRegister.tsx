@@ -28,7 +28,7 @@ const BookRegister = () => {
     setError("");
 
     try {
-      const response = await fetch("/api/books", {
+      const response = await fetch("/api/auth/books", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

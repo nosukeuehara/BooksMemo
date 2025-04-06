@@ -17,12 +17,6 @@ const BookForm = (props: { book: BookViewData }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      title: _title,
-      borrowedDate: _borrowedDate,
-      dueDate: _returnDate,
-      review,
-    });
   };
 
   return (

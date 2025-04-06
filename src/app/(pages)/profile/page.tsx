@@ -1,8 +1,8 @@
 import React from "react";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
 import ProfileEditor from "@/service/profile/ProfileEditor";
+import { fetchUserProfile } from "@/lib/api/auth/profile";
 
 const ProfilePage = async () => {
   const supabase = await createClient();
@@ -15,10 +15,7 @@ const ProfilePage = async () => {
     redirect("/login");
   }
 
-  // データベースからユーザー情報を取得
-  const dbUser = await prisma.user.findUnique({
-    where: { email: user.email },
-  });
+  const dbUser = await fetchUserProfile();
 
   // ユーザー情報を構築
   const userProfile = {

@@ -1,19 +1,12 @@
 import { BookCard } from "@/components/bookCard/BookCard";
 import BookGallery from "@/components/bookGallery/BookGallery";
-import { getUserBooks } from "@/lib/db";
-import { createClient } from "@/lib/supabase/server";
+import { fetchAllBooks } from "@/lib/api/auth/bookAPI";
+import { BookViewData } from "@/types";
 
 export default async function Home() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const response = await fetchAllBooks();
 
-  if (!user) {
-    return <p>さぁ、本を読もう！！！</p>;
-  }
-
-  const books = await getUserBooks(user);
+  const books: BookViewData[] = await response;
 
   return (
     <div>

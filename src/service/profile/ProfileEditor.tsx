@@ -32,13 +32,13 @@ const ProfileEditor = ({ profile }: ProfileProps) => {
     setSuccess("");
 
     try {
-      const response = await fetch("/api/profile", {
-        method: "POST",
+      const response = await fetch("/api/auth/profile", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: name.trim(),
+          name,
         }),
       });
 

@@ -32,7 +32,7 @@ const Editor = ({ book }: { book: BookViewData }) => {
     setError("");
 
     try {
-      const response = await fetch(`/api/books/${book.id}`, {
+      const response = await fetch(`/api/auth/books/${book.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const Editor = ({ book }: { book: BookViewData }) => {
     setError("");
 
     try {
-      const response = await fetch(`/api/books/${book.id}`, {
+      const response = await fetch(`/api/auth/books/${book.id}`, {
         method: "DELETE",
       });
 
