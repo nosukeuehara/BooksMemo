@@ -4,9 +4,7 @@ import { fetchAllBooks } from "@/lib/api/auth/bookAPI";
 import { BookViewData } from "@/types";
 
 export default async function Home() {
-  const response = await fetchAllBooks();
-
-  const books: BookViewData[] = await response;
+  const books: BookViewData[] = await fetchAllBooks();
 
   return (
     <div>

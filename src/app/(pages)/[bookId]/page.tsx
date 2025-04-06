@@ -4,6 +4,11 @@ import React from "react";
 import { BookViewData } from "@/types";
 import { fetchBookById } from "@/lib/api/auth/bookAPI";
 
+export const metadata = {
+  title: "本の詳細",
+  description: "本の詳細情報を表示します",
+};
+
 const Page = async ({ params }: { params: { bookId: string } }) => {
   const { bookId } = await params;
 

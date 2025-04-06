@@ -8,10 +8,10 @@ const BookForm = (props: { book: BookViewData }) => {
   // 初期値を useState にセット（YYYY-MM-DD 形式に変換）
   const [_title, setTitle] = useState(title);
   const [_borrowedDate, setBorrowedDate] = useState(
-    borrowedDate.toISOString().split("T")[0]
+    new Date(borrowedDate).toISOString().split("T")[0]
   );
   const [_returnDate, setReturnDate] = useState(
-    dueDate.toISOString().split("T")[0]
+    new Date(dueDate).toISOString().split("T")[0]
   );
   const [review, setReview] = useState("");
 

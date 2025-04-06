@@ -12,8 +12,8 @@ const Editor = ({ book }: { book: BookViewData }) => {
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
   const [value, setValue] = useState<[Date | null, Date | null]>([
-    book.borrowedDate,
-    book.dueDate,
+    new Date(book.borrowedDate),
+    new Date(book.dueDate),
   ]);
   const [review, setReview] = useState(book.review);
   const [checked, setChecked] = useState(book.returned);

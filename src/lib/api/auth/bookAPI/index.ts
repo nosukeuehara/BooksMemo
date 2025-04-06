@@ -43,7 +43,6 @@ export async function fetchBookById(bookId: string): Promise<BookViewData> {
         ).data.session?.access_token}`,
       },
     })
-    console.log("Response:", response)
     return response.json()
   } catch (error) {
     console.error("Error fetching book data:", error);
