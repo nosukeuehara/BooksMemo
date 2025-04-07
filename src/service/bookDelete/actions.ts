@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache"
 export async function actionDeleteBook(bookId: string) {
   try {
     const response = await deleteBookById(bookId);
-    console.log(response)
 
     if (!response.ok) {
       throw new Error('Faild to delete book')

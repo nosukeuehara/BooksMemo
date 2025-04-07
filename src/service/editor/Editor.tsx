@@ -5,7 +5,6 @@ import styles from "./editor.module.css";
 import { DatePickerInput } from "@mantine/dates";
 import { useRouter } from "next/navigation";
 import { BookViewData } from "@/types";
-import { deleteBookById, updateBookData } from "@/lib/api/auth/book";
 
 const Editor = ({ book }: { book: BookViewData }) => {
   const router = useRouter();
@@ -138,14 +137,6 @@ const Editor = ({ book }: { book: BookViewData }) => {
           }}
         >
           キャンセル
-        </Button>
-        <Button
-          variant="outline"
-          color="red"
-          onClick={handleDelete}
-          disabled={isSubmitting}
-        >
-          削除
         </Button>
       </Group>
     </div>
