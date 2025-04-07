@@ -143,7 +143,7 @@ export async function DELETE(
     const supabase = await createClient();
 
     // トークンを使用してユーザー情報を取得
-    const { data: { user }, error } = await supabase.auth.getUser(token);
+    const { data: { user }, error } = await supabase.auth.getUser(token)
 
     if (error) {
       return NextResponse.json(

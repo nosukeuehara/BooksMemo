@@ -4,25 +4,33 @@ import styles from "./bookCard.module.css";
 import React, { useState } from "react";
 import { Calendar, Ellipsis, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { Button, Menu } from "@mantine/core";
+import { Menu } from "@mantine/core";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 export const BookCard = (props: { book: BookViewData }) => {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const supabase = createClient();
 
   const handleDelete = async () => {
     if (!confirm("この本を削除しますか？")) {
       return;
     }
 
-    setIsSubmitting(true);
     setError("");
 
     try {
       const response = await fetch(`/api/auth/books/${props.book.id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${
+            (
+              await supabase.auth.getSession()
+            ).data.session?.access_token
+          }`,
+        },
       });
 
       if (!response.ok) {
@@ -38,8 +46,6 @@ export const BookCard = (props: { book: BookViewData }) => {
       } else {
         setError("予期せぬエラーが発生しました");
       }
-    } finally {
-      setIsSubmitting(false);
     }
   };
   return (
@@ -57,12 +63,11 @@ export const BookCard = (props: { book: BookViewData }) => {
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item
+              onClick={handleDelete}
               color="red"
               leftSection={<Trash2 size={14} color="red" />}
             >
-              <Button loading={isSubmitting} onClick={handleDelete}>
-                削除する
-              </Button>
+              削除する
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>

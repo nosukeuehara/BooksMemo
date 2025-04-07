@@ -6,6 +6,7 @@ import { Button, Group, Input, Textarea } from "@mantine/core";
 import styles from "./bookRegister.module.css";
 import { DatePickerInput } from "@mantine/dates";
 import { useRouter } from "next/navigation";
+import { actionPostBookData } from "./actions";
 
 const BookRegister = () => {
   const router = useRouter();
@@ -28,23 +29,19 @@ const BookRegister = () => {
     setError("");
 
     try {
-      const response = await fetch("/api/auth/books", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          author,
-          borrowedDate: value[0],
-          dueDate: value[1],
-          review,
-        }),
-      });
+      // Create a new FormData object
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("author", author);
+      formData.append("borrowedDate", value[0]?.toISOString() || "");
+      formData.append("dueDate", value[1]?.toISOString() || "");
+      formData.append("review", review);
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "本の登録に失敗しました");
+      // Use the server action instead of fetch
+      const response = await actionPostBookData(formData);
+
+      if (response.error) {
+        throw new Error(response.error || "本の登録に失敗しました");
       }
 
       router.push("/");
@@ -69,6 +66,7 @@ const BookRegister = () => {
             variant="unstyled"
             size="xl"
             placeholder={title}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -77,6 +75,7 @@ const BookRegister = () => {
             variant="unstyled"
             size="lg"
             placeholder={author}
+            value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
@@ -102,6 +101,7 @@ const BookRegister = () => {
             }}
             size="lg"
             placeholder={review}
+            value={review}
             onChange={(e) => setReview(e.target.value)}
           />
         </div>
