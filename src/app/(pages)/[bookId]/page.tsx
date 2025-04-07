@@ -2,7 +2,7 @@
 import BookInfoViewer from "@/components/bookInfoViewer/BookInfoViewer";
 import React from "react";
 import { BookViewData } from "@/types";
-import { fetchBookById } from "@/lib/api/auth/bookAPI";
+import { fetchBookById } from "@/lib/api/auth/book";
 
 export const metadata = {
   title: "本の詳細",

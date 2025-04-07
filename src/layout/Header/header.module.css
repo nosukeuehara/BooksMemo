@@ -11,25 +11,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1336px;
   margin: 0 auto;
   padding: 1rem 2rem;
-}
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-  color: #0070f3;
 }
 
 .logo_link {
   text-decoration: none;
   transition: opacity 0.2s ease;
-}
-
-.logo_link:hover {
-  opacity: 0.8;
 }
 
 .user_actions {
@@ -46,7 +35,7 @@
 
 .signout_button {
   background-color: transparent;
-  border: 1px solid #ff4757;
+  border: none;
   color: #ff4757;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -62,7 +51,6 @@
 
 .login_link {
   display: inline-block;
-  background-color: #0070f3;
   color: white;
   font-weight: 500;
   padding: 0.5rem 1.5rem;
@@ -72,7 +60,6 @@
 }
 
 .login_link:hover {
-  background-color: #005ad1;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -85,4 +72,13 @@
   .user_email {
     display: none;
   }
+}
+
+.logo_link span {
+  font-family: "Lunasima", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2rem;
+  font-weight: bolder;
+  color: var(--mantine-color-dark-outline);
 }

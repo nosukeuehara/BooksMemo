@@ -14,7 +14,7 @@ const Header = async ({ user }: { user: User | null }) => {
     <header className={styles.header_container}>
       <div className={styles.header_content}>
         <Link href="/" className={styles.logo_link}>
-          <h1 className={styles.logo}>📚 Book Memo</h1>
+          <span>📚coto</span>
         </Link>
 
         {dbUser ? (

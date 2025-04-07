@@ -1,11 +1,11 @@
 "use client";
-
 import React, { useState } from "react";
 import { Button, Group, Input, Switch, Textarea } from "@mantine/core";
 import styles from "./editor.module.css";
 import { DatePickerInput } from "@mantine/dates";
 import { useRouter } from "next/navigation";
 import { BookViewData } from "@/types";
+import { deleteBookById, updateBookData } from "@/lib/api/auth/book";
 
 const Editor = ({ book }: { book: BookViewData }) => {
   const router = useRouter();
@@ -32,25 +32,7 @@ const Editor = ({ book }: { book: BookViewData }) => {
     setError("");
 
     try {
-      const response = await fetch(`/api/auth/books/${book.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          author,
-          borrowedDate: value[0],
-          dueDate: value[1],
-          review,
-          returned: checked,
-        }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "本の更新に失敗しました");
-      }
+      await updateBookData(book.id);
 
       router.refresh();
     } catch (err) {
@@ -73,9 +55,7 @@ const Editor = ({ book }: { book: BookViewData }) => {
     setError("");
 
     try {
-      const response = await fetch(`/api/auth/books/${book.id}`, {
-        method: "DELETE",
-      });
+      const response = await deleteBookById(book.id);
 
       if (!response.ok) {
         const data = await response.json();

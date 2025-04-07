@@ -4,7 +4,8 @@
   background-color: var(--mantine-color-white);
   box-shadow: var(--mantine-shadow-sm);
   transition: all 0.2s ease-in-out;
-  height: 225px;
+  height: 230px;
+  position: relative;
 }
 
 .bookCard:hover {
@@ -32,47 +33,13 @@
   -webkit-line-clamp: 1;
   transition: opacity 0.3s ease;
   position: relative;
+  width: 80%;
 }
 
 .book_title:hover {
   cursor: pointer;
   opacity: 0.7;
   text-underline-offset: 0.2rem;
-}
-
-.edit_text {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  bottom: 0;
-  font-size: 14px;
-  cursor: pointer;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(2px);
-  pointer-events: none;
-}
-
-/* ホバー時に表示（PC） */
-.book_title:hover .edit_text {
-  visibility: visible;
-  font-size: var(--mantine-font-size-xs);
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* モバイルでは常に表示 */
-@media (max-width: 768px) {
-  .edit_text {
-    visibility: visible;
-    font-size: var(--mantine-font-size-xs);
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-    position: static;
-    display: inline;
-    margin-left: 0.5rem;
-  }
 }
 
 .book_author {
@@ -104,4 +71,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
+  font-size: var(--mantine-font-size-l);
+  height: calc(var(--mantine-font-size-l) * 3);
+}
+
+.menu_ellipsis {
+  position: absolute;
+  right: 1rem;
 }

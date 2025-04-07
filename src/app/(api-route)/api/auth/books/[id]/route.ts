@@ -28,7 +28,7 @@ export async function GET(
 ) {
   const _params = await (params)
   try {
-    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+    const token = request.headers.get('Authorization')?.split('Bearer')[1];
 
     if (!token) {
       return NextResponse.json(
@@ -67,13 +67,31 @@ export async function GET(
 }
 
 export async function PUT(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const _params = await (params)
   try {
+    const token = request.headers.get('Authorization')?.split('Bearer')[1];
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Authentication required のすけのすけ" },
+        { status: 401 }
+      );
+    }
+
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+
+    // トークンを使用してユーザー情報を取得
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Invalid token or user not found" },
+        { status: 401 }
+      );
+    }
 
     if (!user) {
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });
@@ -85,7 +103,7 @@ export async function PUT(
       return NextResponse.json({ error: "Book not found or access denied" }, { status: 404 });
     }
 
-    const body = await req.json();
+    const body = await request.json();
     const { title, author, borrowedDate, dueDate, review, returned } = body;
 
     const updatedBook = await prisma.book.update({
@@ -108,13 +126,31 @@ export async function PUT(
 }
 
 export async function DELETE(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const _params = await (params)
   try {
+    const token = request.headers.get('Authorization')?.split('Bearer')[1];
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+
+    // トークンを使用してユーザー情報を取得
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error) {
+      return NextResponse.json(
+        { error: "Invalid token or user not found" },
+        { status: 401 }
+      );
+    }
 
     if (!user) {
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });

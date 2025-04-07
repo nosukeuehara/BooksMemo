@@ -2,25 +2,77 @@
 import { BookViewData } from "@/types";
 import styles from "./bookCard.module.css";
 import React, { useState } from "react";
-import { Calendar } from "lucide-react";
+import { Calendar, Ellipsis, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { Modal } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import Editor from "@/service/editor/Editor";
+import { Button, Menu } from "@mantine/core";
+import { useRouter } from "next/navigation";
 
 export const BookCard = (props: { book: BookViewData }) => {
-  const [viewTemplate, setViewTemplate] = useState("default");
-  const [opened, { open, close }] = useDisclosure(false);
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleDelete = async () => {
+    if (!confirm("この本を削除しますか？")) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch(`/api/auth/books/${props.book.id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "本の削除に失敗しました");
+      }
+
+      router.push("/");
+      router.refresh();
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("予期せぬエラーが発生しました");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className={`${styles.bookCard}`}>
+      {error && <div className={styles.error}>{error}</div>}
+      <div className={`${styles.menu_ellipsis}`}>
+        <Menu
+          trigger="hover"
+          openDelay={100}
+          closeDelay={400}
+          position="bottom-end"
+        >
+          <Menu.Target>
+            <Ellipsis />
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item
+              color="red"
+              leftSection={<Trash2 size={14} color="red" />}
+            >
+              <Button loading={isSubmitting} onClick={handleDelete}>
+                削除する
+              </Button>
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      </div>
       {/* ヘッダー情報 */}
       <div className={`${styles.bookInfo_header}`}>
         <div className={`${styles.primaryInfo}`}>
-          <div onClick={open} className={`${styles.book_title}`}>
+          <div className={`${styles.book_title}`}>
             <span>{props.book.title}</span>
-            <span className={`${styles.edit_text}`}>編集する</span>
           </div>
-
           <span className={`${styles.book_author}`}>{props.book.author}</span>
         </div>
         <div className={`${styles.secondaryInfo}`}>
@@ -29,9 +81,6 @@ export const BookCard = (props: { book: BookViewData }) => {
             {new Date(props.book.dueDate).toLocaleDateString("ja-JP")}
           </span>
         </div>
-        <Modal opened={opened} onClose={close} title="Authentication" centered>
-          <Editor book={props.book} />
-        </Modal>
       </div>
       <Link
         href={props.book.id}

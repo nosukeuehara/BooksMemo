@@ -1,6 +1,6 @@
 import { BookCard } from "@/components/bookCard/BookCard";
 import BookGallery from "@/components/bookGallery/BookGallery";
-import { fetchAllBooks } from "@/lib/api/auth/bookAPI";
+import { fetchAllBooks } from "@/lib/api/auth/book";
 import { BookViewData } from "@/types";
 
 export default async function Home() {
