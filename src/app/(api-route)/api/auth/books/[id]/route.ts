@@ -28,7 +28,7 @@ export async function GET(
 ) {
   const _params = await (params)
   try {
-    const token = request.headers.get('Authorization')?.split('Bearer')[1];
+    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
     if (!token) {
       return NextResponse.json(
@@ -72,7 +72,7 @@ export async function PUT(
 ) {
   const _params = await (params)
   try {
-    const token = request.headers.get('Authorization')?.split('Bearer')[1];
+    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
     if (!token) {
       return NextResponse.json(
@@ -131,7 +131,7 @@ export async function DELETE(
 ) {
   const _params = await (params)
   try {
-    const token = request.headers.get('Authorization')?.split('Bearer')[1];
+    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
     if (!token) {
       return NextResponse.json(
