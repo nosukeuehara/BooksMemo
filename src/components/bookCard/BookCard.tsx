@@ -1,56 +1,15 @@
 "use client";
 import { BookViewData } from "@/types";
 import styles from "./bookCard.module.css";
-import React, { useState } from "react";
-import { Calendar, Ellipsis, Trash2 } from "lucide-react";
+import React from "react";
+import { Calendar, Ellipsis } from "lucide-react";
 import Link from "next/link";
 import { Menu } from "@mantine/core";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import BookDelete from "@/service/bookDelete/BookDelete";
 
 export const BookCard = (props: { book: BookViewData }) => {
-  const router = useRouter();
-  const [error, setError] = useState("");
-  const supabase = createClient();
-
-  const handleDelete = async () => {
-    if (!confirm("この本を削除しますか？")) {
-      return;
-    }
-
-    setError("");
-
-    try {
-      const response = await fetch(`/api/auth/books/${props.book.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${
-            (
-              await supabase.auth.getSession()
-            ).data.session?.access_token
-          }`,
-        },
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "本の削除に失敗しました");
-      }
-
-      router.push("/");
-      router.refresh();
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("予期せぬエラーが発生しました");
-      }
-    }
-  };
   return (
     <div className={`${styles.bookCard}`}>
-      {error && <div className={styles.error}>{error}</div>}
       <div className={`${styles.menu_ellipsis}`}>
         <Menu
           trigger="hover"
@@ -62,13 +21,7 @@ export const BookCard = (props: { book: BookViewData }) => {
             <Ellipsis />
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Item
-              onClick={handleDelete}
-              color="red"
-              leftSection={<Trash2 size={14} color="red" />}
-            >
-              削除する
-            </Menu.Item>
+            <BookDelete bookId={props.book.id} title={props.book.title} />
           </Menu.Dropdown>
         </Menu>
       </div>
