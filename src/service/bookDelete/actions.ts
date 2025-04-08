@@ -7,13 +7,8 @@ export async function actionDeleteBook(bookId: string) {
   try {
     const response = await deleteBookById(bookId);
 
-    if (!response.ok) {
-      throw new Error('Faild to delete book')
-    }
-
     revalidatePath('/');
-
-    return { success: true, message: "本が正常に削除されました" };
+    return { success: true, message: response.message };
   } catch (error) {
     console.error("Server action error:", error);
     return { error: "本の削除に失敗しました" };

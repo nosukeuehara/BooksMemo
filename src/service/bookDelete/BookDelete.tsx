@@ -62,6 +62,7 @@ const BookDelete: React.FC<BookDeleteProps> = ({
         variant="transparent"
         onClick={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           setOpened(true);
         }}
       >
@@ -87,7 +88,14 @@ const BookDelete: React.FC<BookDeleteProps> = ({
           <Button variant="outline" onClick={() => setOpened(false)}>
             キャンセル
           </Button>
-          <Button color="red" onClick={handleDelete} loading={isDeleting}>
+          <Button
+            color="red"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete();
+            }}
+            loading={isDeleting}
+          >
             削除する
           </Button>
         </Group>

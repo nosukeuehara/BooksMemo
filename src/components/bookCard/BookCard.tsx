@@ -32,6 +32,7 @@ export const BookCard = (props: { book: BookViewData }) => {
                   variant="transparent"
                   onClick={(e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     router.push(`/${props.book.id}/edit`);
                   }}
                   leftSection={<Edit size={14} />}
