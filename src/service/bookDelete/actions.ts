@@ -1,4 +1,3 @@
-// src/service/bookDelete/actions.ts
 "use server"
 import { deleteBookById } from "@/lib/api/auth/book"
 import { revalidatePath } from "next/cache"
