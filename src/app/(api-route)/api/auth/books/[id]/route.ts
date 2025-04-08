@@ -76,7 +76,7 @@ export async function PUT(
 
     if (!token) {
       return NextResponse.json(
-        { error: "Authentication required のすけのすけ" },
+        { error: "Authentication required" },
         { status: 401 }
       );
     }

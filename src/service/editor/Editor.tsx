@@ -5,6 +5,8 @@ import styles from "./editor.module.css";
 import { DatePickerInput } from "@mantine/dates";
 import { useRouter } from "next/navigation";
 import { BookViewData } from "@/types";
+import { updateBookData } from "@/lib/api/auth/book";
+import { Book } from "@prisma/client";
 
 const Editor = ({ book }: { book: BookViewData }) => {
   const router = useRouter();
@@ -30,38 +32,14 @@ const Editor = ({ book }: { book: BookViewData }) => {
     setIsSubmitting(true);
     setError("");
 
-    try {
-      await updateBookData(book.id);
-
-      router.refresh();
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("予期せぬエラーが発生しました");
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!confirm("この本を削除しますか？")) {
-      return;
-    }
-
-    setIsSubmitting(true);
-    setError("");
+    const updateData: Book = {
+      ...book,
+      userId: (await user.auth.getUser()).data.user!.id,
+    };
 
     try {
-      const response = await deleteBookById(book.id);
+      await updateBookData(updateData);
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "本の削除に失敗しました");
-      }
-
-      router.push("/");
       router.refresh();
     } catch (err) {
       if (err instanceof Error) {

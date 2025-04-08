@@ -6,8 +6,10 @@ import { Calendar, Ellipsis } from "lucide-react";
 import Link from "next/link";
 import { Menu } from "@mantine/core";
 import BookDelete from "@/service/bookDelete/BookDelete";
+import { useRouter } from "next/navigation";
 
 export const BookCard = (props: { book: BookViewData }) => {
+  const router = useRouter();
   return (
     <div className={`${styles.bookCard}`}>
       <div className={`${styles.menu_ellipsis}`}>
@@ -21,6 +23,13 @@ export const BookCard = (props: { book: BookViewData }) => {
             <Ellipsis />
           </Menu.Target>
           <Menu.Dropdown>
+            <button
+              onClick={() => {
+                router.push(`/${props.book.id}/edit`);
+              }}
+            >
+              編集する
+            </button>
             <BookDelete bookId={props.book.id} title={props.book.title} />
           </Menu.Dropdown>
         </Menu>

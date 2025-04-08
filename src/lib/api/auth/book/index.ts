@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { BookViewData } from "@/types";
+import { Book } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 /**
@@ -80,10 +81,13 @@ export async function registBookData(registBookData: { title: string, author: st
  * @param bookId 更新対象の本ID
  * @returns 
  */
-export async function updateBookData(bookId: string): Promise<BookViewData> {
+export async function updateBookData(bookData: Book): Promise<BookViewData> {
   const supabase = await createClient()
   try {
-    const response = await fetch(`http://localhost:3000/api/auth/books/${bookId}`, {
+    if (bookData.userId !== (await supabase.auth.getUser()).data.user?.id) {
+      throw new Error("you have no data")
+    }
+    const response = await fetch(`http://localhost:3000/api/auth/books/${bookData.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -92,6 +96,9 @@ export async function updateBookData(bookId: string): Promise<BookViewData> {
         ).data.session?.access_token
           }`,
       },
+      body: JSON.stringify({
+        ...bookData
+      })
     })
     return response.json()
   } catch (error) {

@@ -1,8 +1,9 @@
 import { updateBookData } from "@/lib/api/auth/book";
+import { Book } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-export async function actionUpdateBookInfo(bookId: string) {
+export async function actionUpdateBookInfo(bookData: Book) {
   try {
-    const response = await updateBookData(bookId)
+    const response = await updateBookData(bookData)
 
     if (!response) {
       throw new Error('Faild to delete book')
