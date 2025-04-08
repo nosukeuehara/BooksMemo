@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import { BookViewData } from "@/types";
 import { updateBookData } from "@/lib/api/auth/book";
 import { Book } from "@prisma/client";
+import { createClient } from "@/lib/supabase/client";
 
 const Editor = ({ book }: { book: BookViewData }) => {
+  const user = createClient();
   const router = useRouter();
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);

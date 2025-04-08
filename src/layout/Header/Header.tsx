@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./header.module.css";
-import { signout } from "@/app/(pages)/login/actions";
 import { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
+import { signout } from "@/app/(routes)/login/actions";
 
 const Header = async ({ user }: { user: User | null }) => {
   if (!user) return null;

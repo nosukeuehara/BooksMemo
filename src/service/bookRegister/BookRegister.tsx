@@ -10,10 +10,10 @@ import { actionPostBookData } from "./actions";
 
 const BookRegister = () => {
   const router = useRouter();
-  const [title, setTitle] = useState("タイトルを入力");
-  const [author, setAuthor] = useState("著者を入力");
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-  const [review, setReview] = useState("感想を入力してみよう");
+  const [review, setReview] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -65,7 +65,7 @@ const BookRegister = () => {
           <Input
             variant="unstyled"
             size="xl"
-            placeholder={title}
+            placeholder={"タイトルを入力"}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -74,7 +74,7 @@ const BookRegister = () => {
           <Input
             variant="unstyled"
             size="lg"
-            placeholder={author}
+            placeholder={"著者を入力"}
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
@@ -86,7 +86,7 @@ const BookRegister = () => {
             type="range"
             locale="ja"
             valueFormat="YYYY/MM/DD"
-            placeholder="貸出日と返却日を選択してください"
+            placeholder={"貸出日と返却日を選択してください"}
             value={value}
             onChange={setValue}
           />
@@ -100,7 +100,7 @@ const BookRegister = () => {
               input: styles.reviewArea__padding,
             }}
             size="lg"
-            placeholder={review}
+            placeholder={"感想を入力してみよう"}
             value={review}
             onChange={(e) => setReview(e.target.value)}
           />

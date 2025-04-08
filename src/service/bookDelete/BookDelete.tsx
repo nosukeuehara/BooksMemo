@@ -1,12 +1,9 @@
-// src/service/bookDelete/BookDelete.tsx
 "use client";
-
 import React, { useState } from "react";
 import { Button, Modal, Group, Text } from "@mantine/core";
-import { useRouter } from "next/navigation";
 import { actionDeleteBook } from "./actions";
 import { Trash2 } from "lucide-react";
-import { useHover } from "@mantine/hooks";
+import { useRouter } from "next/navigation";
 
 interface BookDeleteProps {
   bookId: string;
@@ -23,7 +20,6 @@ const BookDelete: React.FC<BookDeleteProps> = ({
   const [opened, setOpened] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState("");
-  const { hovered, ref } = useHover();
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -63,9 +59,11 @@ const BookDelete: React.FC<BookDeleteProps> = ({
       <Button
         leftSection={<Trash2 size={14} color="red" />}
         color="red"
-        ref={ref}
-        variant={`${hovered ? "light" : "subtle"}`}
-        onClick={() => setOpened(true)}
+        variant="transparent"
+        onClick={(e) => {
+          e.preventDefault();
+          setOpened(true);
+        }}
       >
         削除
       </Button>
