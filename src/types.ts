@@ -7,3 +7,8 @@ export interface BookViewData {
   returned: boolean;
   review: string;
 }
+
+export interface UpdateResult {
+  error?: string;
+  [key: string]: any; // 他の任意のプロパティを許可
+}

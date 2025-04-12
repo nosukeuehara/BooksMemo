@@ -1,17 +1,21 @@
+"use server";
+// src/service/editor/actions.ts を修正
 import { updateBookData } from "@/lib/api/auth/book";
+import { UpdateResult } from "@/types";
 import { Book } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-export async function actionUpdateBookInfo(bookData: Book) {
+
+export async function actionUpdateBookInfo(bookData: Book): Promise<UpdateResult> {
   try {
-    const response = await updateBookData(bookData)
+    const response = await updateBookData(bookData);
 
     if (!response) {
-      throw new Error('Faild to delete book')
+      throw new Error('Failed to update book');
     }
     revalidatePath('/');
-    return response
+    return response;
   } catch (error) {
-    console.error("Faild to update book data", error)
-    return { error: "データの更新に失敗しました。" }
+    console.error("Failed to update book data", error);
+    return { error: "データの更新に失敗しました。" };
   }
 }

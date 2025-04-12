@@ -3,3 +3,15 @@
   gap: 1rem;
   margin-bottom: 2rem;
 }
+
+.notificationContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 300px;
+}
+
+.notification {
+  margin-bottom: 10px;
+}
