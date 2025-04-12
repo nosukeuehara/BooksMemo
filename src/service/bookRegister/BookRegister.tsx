@@ -1,7 +1,6 @@
-// src/service/bookRegister/BookRegister.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Group, Input, Textarea } from "@mantine/core";
 import styles from "./bookRegister.module.css";
 import { DatePickerInput } from "@mantine/dates";
@@ -16,6 +15,14 @@ const BookRegister = () => {
   const [review, setReview] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Focus the input field when the component mounts
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,6 +74,7 @@ const BookRegister = () => {
             size="xl"
             placeholder={"タイトルを入力"}
             value={title}
+            ref={inputRef}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
