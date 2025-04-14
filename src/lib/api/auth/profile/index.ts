@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { User } from "@prisma/client";
 
 export async function fetchUserProfile() {
   const supabase = await createClient();
@@ -18,7 +19,7 @@ export async function fetchUserProfile() {
       throw new Error(data.error || "ユーザープロフィールの取得に失敗しました");
     }
 
-    const data = await response.json();
+    const data: User = await response.json();
     return data;
   } catch (error) {
     if (error instanceof Error) {

@@ -14,7 +14,7 @@ import {
 import "@mantine/dates/styles.css";
 import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/ja";
-import { createClient } from "@/lib/supabase/server";
+import { fetchUserProfile } from "@/lib/api/auth/profile";
 
 const theme = createTheme({
   cursorType: "pointer",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const { data } = await (await createClient()).auth.getUser();
+  const user = await fetchUserProfile();
   return (
     <html lang="ja" {...mantineHtmlProps}>
       <head>
@@ -46,7 +46,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <MantineProvider theme={theme}>
           <DatesProvider settings={{ firstDayOfWeek: 0, locale: "ja" }}>
-            <Header user={data.user} />
+            <Header userName={user?.name || ""} />
             <Navigation />
             <div className={`${styles.body_container}`}>{children}</div>
           </DatesProvider>
