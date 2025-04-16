@@ -13,6 +13,7 @@ const Page = async ({ params }: { params: { bookId: string } }) => {
   const { bookId } = await params;
 
   // Get the book only if it belongs to the authenticated user
+  // テスト
   const bookData = await fetchBookById(bookId);
 
   if (!bookData) {
