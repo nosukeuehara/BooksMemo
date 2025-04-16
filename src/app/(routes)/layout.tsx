@@ -15,6 +15,7 @@ import "@mantine/dates/styles.css";
 import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/ja";
 import { fetchUserProfile } from "@/lib/api/auth/profile";
+import { UserInfo } from "@/types";
 
 const theme = createTheme({
   cursorType: "pointer",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const user = await fetchUserProfile();
+  const user: UserInfo | undefined = await fetchUserProfile();
   return (
     <html lang="ja" {...mantineHtmlProps}>
       <head>
@@ -46,7 +47,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <MantineProvider theme={theme}>
           <DatesProvider settings={{ firstDayOfWeek: 0, locale: "ja" }}>
-            <Header userName={user?.name || ""} />
+            <Header userInfo={user} />
             <Navigation />
             <div className={`${styles.body_container}`}>{children}</div>
           </DatesProvider>

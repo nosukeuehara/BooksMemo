@@ -69,6 +69,7 @@ export async function registBookData(registBookData: { title: string, author: st
         ...registBookData
       }),
     })
+
     return response.json()
   } catch (error) {
     console.error("Error regist book data:", error);

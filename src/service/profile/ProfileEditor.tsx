@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Button, Group, Input, Text, Alert } from "@mantine/core";
 import { useRouter } from "next/navigation";
+import { actionUpdateProfileData } from "./actions";
 
 interface ProfileProps {
   profile: {
@@ -32,19 +33,12 @@ const ProfileEditor = ({ profile }: ProfileProps) => {
     setSuccess("");
 
     try {
-      const response = await fetch("/api/auth/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-        }),
-      });
+      const formData = new FormData();
+      formData.append("name", name);
+      const response = await actionUpdateProfileData(formData);
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "プロフィールの更新に失敗しました");
+      if (response.error) {
+        throw new Error(response.error || "プロフィールの更新に失敗しました");
       }
 
       setSuccess("プロフィールを保存しました");
@@ -106,6 +100,7 @@ const ProfileEditor = ({ profile }: ProfileProps) => {
           >
             <Input
               size="md"
+              name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="名前を入力"

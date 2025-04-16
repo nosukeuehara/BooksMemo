@@ -12,3 +12,9 @@ export interface UpdateResult {
   error?: string;
   [key: string]: any; // 他の任意のプロパティを許可
 }
+
+export interface UserInfo {
+  id: string;
+  name: string | null;
+  email: string;
+}

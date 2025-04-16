@@ -17,7 +17,7 @@ const Navigation = () => {
           }`}
         >
           <Link href="/" className={styles.nav_link}>
-            <span className={styles.nav_item__text}>ホーム</span>
+            <span className={styles.nav_item__text}>一覧</span>
           </Link>
         </li>
         <li
@@ -26,16 +26,7 @@ const Navigation = () => {
           }`}
         >
           <Link href="/register" className={styles.nav_link}>
-            <span className={styles.nav_item__text}>本を登録</span>
-          </Link>
-        </li>
-        <li
-          className={`${styles.nav_item} ${
-            pathname === "/profile" ? styles.active : ""
-          }`}
-        >
-          <Link href="/profile" className={styles.nav_link}>
-            <span className={styles.nav_item__text}>プロフィール</span>
+            <span className={styles.nav_item__text}>登録</span>
           </Link>
         </li>
       </ul>

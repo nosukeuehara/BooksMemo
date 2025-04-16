@@ -34,7 +34,7 @@ export async function fetchUserProfile() {
  * ユーザーのプロフィールを更新する関数
  * @param name - ユーザーの名前
  */
-export async function updateUserProfile(name: string) {
+export async function updateUserProfile(updataData: { name: string }) {
   const supabase = await createClient();
   try {
     const response = await fetch("http://localhost:3000//api/auth/profile", {
@@ -46,7 +46,7 @@ export async function updateUserProfile(name: string) {
         ).data.session?.access_token}`,
       },
       body: JSON.stringify({
-        name: name.trim(),
+        name: updataData.name.trim(),
       }),
     });
 
@@ -54,6 +54,7 @@ export async function updateUserProfile(name: string) {
       const data = await response.json();
       throw new Error(data.error || "プロフィールの更新に失敗しました");
     }
+    return response.json()
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
