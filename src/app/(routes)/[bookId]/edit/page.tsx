@@ -5,7 +5,11 @@ import React from "react";
 const page = async ({ params }: { params: Promise<{ bookId: string }> }) => {
   const bookId = (await params).bookId;
   const bookData = await fetchBookById(bookId);
-  return <Editor book={bookData} />;
+  return (
+    <div>
+      <Editor book={bookData} />
+    </div>
+  );
 };
 
 export default page;

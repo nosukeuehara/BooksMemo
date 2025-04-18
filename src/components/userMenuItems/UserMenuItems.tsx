@@ -2,7 +2,7 @@
 import { signout } from "@/app/(routes)/login/actions";
 import { UserInfo } from "@/types";
 import { Menu } from "@mantine/core";
-import { LogOut } from "lucide-react";
+import { LogOut, UserRoundPen } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function UserMenuItems({ userInfo }: { userInfo: UserInfo }) {
@@ -12,9 +12,12 @@ export function UserMenuItems({ userInfo }: { userInfo: UserInfo }) {
       <Menu.Label>{userInfo.email}</Menu.Label>
       <Menu.Divider />
       <Menu.Item
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
           router.push("/profile");
         }}
+        leftSection={<UserRoundPen size={14} />}
       >
         プロフィール
       </Menu.Item>
