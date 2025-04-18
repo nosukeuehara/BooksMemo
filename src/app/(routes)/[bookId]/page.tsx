@@ -1,4 +1,3 @@
-// src/app/(pages)/[bookId]/page.tsx
 import BookInfoViewer from "@/components/bookInfoViewer/BookInfoViewer";
 import React from "react";
 import { BookViewData } from "@/types";
