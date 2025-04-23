@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./bookInfoViewer.module.css";
 import { BookViewData } from "@/types";
+import { Text, Paper } from "@mantine/core";
 
 interface BookInfoProps {
   book: BookViewData;
@@ -8,11 +9,11 @@ interface BookInfoProps {
 
 const BookInfoViewer = ({ book }: BookInfoProps) => {
   return (
-    <div className={styles.bookInfoViewer}>
-      <h1 className={styles.bookTitle}>{book.title}</h1>
-      <p className={styles.bookAuthor}>{book.author}</p>
-      <p className={styles.bookReview}>{book.review}</p>
-    </div>
+    <Paper shadow="sm" radius="xs" p="xl" mih="500">
+      <Text className={styles.bookTitle}>{book.title}</Text>
+      <Text className={styles.bookAuthor}>{book.author}</Text>
+      <Text className={styles.bookReview}>{book.review}</Text>
+    </Paper>
   );
 };
 
