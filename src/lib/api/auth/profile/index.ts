@@ -1,8 +1,8 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClientServer } from "@/lib/supabase/server";
 import { User } from "@prisma/client";
 
 export async function fetchUserProfile() {
-  const supabase = await createClient();
+  const supabase = await createClientServer();
   try {
     const response = await fetch("http://localhost:3000//api/auth/profile", {
       method: "GET",
@@ -35,7 +35,7 @@ export async function fetchUserProfile() {
  * @param name - ユーザーの名前
  */
 export async function updateUserProfile(updataData: { name: string }) {
-  const supabase = await createClient();
+  const supabase = await createClientServer();
   try {
     const response = await fetch("http://localhost:3000//api/auth/profile", {
       method: "POST",

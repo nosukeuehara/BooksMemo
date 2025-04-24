@@ -1,6 +1,6 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+import { createClientServer } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
@@ -16,7 +16,7 @@ import prisma from '@/lib/prisma'
  * @returns void
  */
 export async function login(formData: FormData) {
-  const supabase = await createClient()
+  const supabase = await createClientServer()
 
   const data = {
     email: formData.get('email') as string,
@@ -56,7 +56,7 @@ export async function login(formData: FormData) {
  * @returns void
  */
 export async function signup(formData: FormData) {
-  const supabase = await createClient()
+  const supabase = await createClientServer()
 
   const data = {
     email: formData.get('email') as string,
@@ -82,7 +82,7 @@ export async function signup(formData: FormData) {
  * @returns void
  */
 export async function signout() {
-  const supabase = await createClient()
+  const supabase = await createClientServer()
 
   const { error } = await supabase.auth.signOut()
 

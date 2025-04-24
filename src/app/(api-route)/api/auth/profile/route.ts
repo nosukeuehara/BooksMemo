@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { createClient } from "@/lib/supabase/server";
+import { createClientServer } from "@/lib/supabase/server";
 
 // ユーザープロファイル取得
 export async function GET(request: NextRequest) {
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    const supabase = await createClientServer();
 
     // トークンを使用してユーザー情報を取得
     const { data: { user }, error } = await supabase.auth.getUser(token);
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    const supabase = await createClientServer();
 
     // トークンを使用してユーザー情報を取得
     const { data: { user }, error } = await supabase.auth.getUser(token);

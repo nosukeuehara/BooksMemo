@@ -1,4 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/client";
+import { createClientServer } from "@/lib/supabase/server";
 import { BookViewData } from "@/types";
 import { Book } from "@prisma/client";
 import { NextResponse } from "next/server";
@@ -8,7 +9,7 @@ import { NextResponse } from "next/server";
  * @returns {Promise<BookViewData[]>} - A promise that resolves to an array of book data.
  */
 export async function fetchAllBooks(): Promise<BookViewData[]> {
-  const supabase = await createClient();
+  const supabase = typeof window === 'undefined' ? await createClientServer() : await createClient()
   try {
     const response = await fetch("http://localhost:3000/api/auth/books", {
       method: "GET",
@@ -34,7 +35,7 @@ export async function fetchAllBooks(): Promise<BookViewData[]> {
  * @returns 
  */
 export async function fetchBookById(bookId: string): Promise<BookViewData> {
-  const supabase = await createClient();
+  const supabase = typeof window === 'undefined' ? await createClientServer() : await createClient()
   try {
     const response = await fetch(`http://localhost:3000/api/auth/books/${bookId}`, {
       method: "GET",
@@ -54,7 +55,7 @@ export async function fetchBookById(bookId: string): Promise<BookViewData> {
 }
 
 export async function registBookData(registBookData: { title: string, author: string, borrowedDate: string, dueDate: string, review: string }) {
-  const supabase = await createClient();
+  const supabase = await createClientServer();
   try {
     const response = await fetch(`http://localhost:3000/api/auth/books`, {
       method: "POST",
@@ -83,7 +84,7 @@ export async function registBookData(registBookData: { title: string, author: st
  * @returns 
  */
 export async function updateBookData(bookData: Book): Promise<BookViewData> {
-  const supabase = await createClient()
+  const supabase = await createClientServer()
   try {
     if (bookData.userId !== (await supabase.auth.getUser()).data.user?.id) {
       throw new Error("you have no data")
@@ -118,7 +119,7 @@ export async function deleteBookById(bookId: string): Promise<NextResponse<{
 }> | NextResponse<{
   message: string;
 }>> {
-  const supabase = await createClient();
+  const supabase = await createClientServer();
   try {
     const response = await fetch(`http://localhost:3000/api/auth/books/${bookId}`, {
       method: "DELETE",

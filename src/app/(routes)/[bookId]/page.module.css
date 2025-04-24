@@ -1,0 +1,87 @@
+.skeletonContainer {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skeletonHeader {
+  margin-bottom: 24px;
+}
+
+.skeletonTitle {
+  height: 32px;
+  width: 70%;
+  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeletonAuthor {
+  height: 20px;
+  width: 40%;
+  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonDetails {
+  margin-bottom: 24px;
+}
+
+.skeletonRow {
+  height: 18px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeletonReview {
+  padding-top: 16px;
+  border-top: 1px solid #eaeaea;
+}
+
+.skeletonReviewHeader {
+  height: 24px;
+  width: 30%;
+  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.skeletonReviewContent {
+  height: 16px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.errorMessage {
+  padding: 16px;
+  background-color: #fff4f4;
+  border: 1px solid #ffcaca;
+  border-radius: 4px;
+  color: #d42626;
+  text-align: center;
+  font-weight: 500;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

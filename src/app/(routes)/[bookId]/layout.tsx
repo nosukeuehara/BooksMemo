@@ -3,23 +3,27 @@ import { BookViewData } from "@/types";
 import styles from "./layout.module.css";
 import Link from "next/link";
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// 実際のコンテンツを表示するコンポーネント
+const BookGalleryContent = async () => {
   const books: BookViewData[] = await fetchAllBooks();
+
   return (
-    <div className={`${styles.bookGalleryLayout}`}>
-      <div className={`${styles.bookGallery}`}>
-        {books.map((book) => (
-          <Link href={book.id} key={book.id}>
-            <p>{book.title}</p>
-            <p>{book.author}</p>
-          </Link>
-        ))}
-      </div>
-      <div>{children}</div>
+    <div className={styles.bookGallery}>
+      {books.map((book) => (
+        <Link href={book.id} key={book.id} className={styles.bookLink}>
+          <p className={styles.bookTitle}>{book.title}</p>
+          <p className={styles.bookAuthor}>{book.author}</p>
+        </Link>
+      ))}
+    </div>
+  );
+};
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className={styles.bookGalleryLayout}>
+      <BookGalleryContent />
+      <div className={styles.contentArea}>{children}</div>
     </div>
   );
 }

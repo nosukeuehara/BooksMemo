@@ -1,14 +1,14 @@
 .nav_container {
-  width: 100%;
-  padding: 0.5rem 1rem;
+  max-width: 1336px;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   border-radius: 1rem;
-  margin: 1rem 0;
+  margin: 2rem auto 0.4rem;
 }
 
 .nav_list {
   display: flex;
+  align-items: center;
   gap: 1.5rem;
   padding: 0;
   margin: 0;

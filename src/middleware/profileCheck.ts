@@ -1,11 +1,11 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
-import { createClient } from '@/lib/supabase/server'
+import { createClientServer } from '@/lib/supabase/server'
 
 // このミドルウェアはサインイン後にプロフィールが存在しないユーザーを
 // プロフィール作成ページにリダイレクトします
 export async function profileCheckMiddleware(request: NextRequest) {
-  const supabase = await createClient()
+  const supabase = await createClientServer()
 
   // Supabaseセッションからユーザー情報を取得
   const {
