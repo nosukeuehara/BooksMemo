@@ -1,17 +1,19 @@
 import { createClient } from "@/lib/supabase/client";
 import { createClientServer } from "@/lib/supabase/server";
 import { BookViewData } from "@/types";
+import { getBaseUrl } from "@/utils/baseUrl";
 import { Book } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 /**
  * 本のデータを取得する関数
- * @returns {Promise<BookViewData[]>} - A promise that resolves to an array of book data.
+ * @returns {Promise<BookViewData[]>}
  */
 export async function fetchAllBooks(): Promise<BookViewData[]> {
   const supabase = typeof window === 'undefined' ? await createClientServer() : await createClient()
+  const BASE_URL = getBaseUrl();
   try {
-    const response = await fetch("http://localhost:3000/api/auth/books", {
+    const response = await fetch(`${BASE_URL}/api/auth/books`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -36,8 +38,9 @@ export async function fetchAllBooks(): Promise<BookViewData[]> {
  */
 export async function fetchBookById(bookId: string): Promise<BookViewData> {
   const supabase = typeof window === 'undefined' ? await createClientServer() : await createClient()
+  const BASE_URL = getBaseUrl();
   try {
-    const response = await fetch(`http://localhost:3000/api/auth/books/${bookId}`, {
+    const response = await fetch(`${BASE_URL}/api/auth/books/${bookId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -56,8 +59,9 @@ export async function fetchBookById(bookId: string): Promise<BookViewData> {
 
 export async function registBookData(registBookData: { title: string, author: string, borrowedDate: string, dueDate: string, review: string }) {
   const supabase = await createClientServer();
+  const BASE_URL = getBaseUrl();
   try {
-    const response = await fetch(`http://localhost:3000/api/auth/books`, {
+    const response = await fetch(`${BASE_URL}/api/auth/books`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,11 +89,12 @@ export async function registBookData(registBookData: { title: string, author: st
  */
 export async function updateBookData(bookData: Book): Promise<BookViewData> {
   const supabase = await createClientServer()
+  const BASE_URL = getBaseUrl();
   try {
     if (bookData.userId !== (await supabase.auth.getUser()).data.user?.id) {
       throw new Error("you have no data")
     }
-    const response = await fetch(`http://localhost:3000/api/auth/books/${bookData.id}`, {
+    const response = await fetch(`${BASE_URL}/api/auth/books/${bookData.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -120,8 +125,9 @@ export async function deleteBookById(bookId: string): Promise<NextResponse<{
   message: string;
 }>> {
   const supabase = await createClientServer();
+  const BASE_URL = getBaseUrl();
   try {
-    const response = await fetch(`http://localhost:3000/api/auth/books/${bookId}`, {
+    const response = await fetch(`${BASE_URL}/api/auth/books/${bookId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
