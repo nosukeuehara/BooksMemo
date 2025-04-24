@@ -7,6 +7,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 1rem;
+  position: relative;
 }
 
 .bookGallery {
@@ -17,6 +18,7 @@
 
 .bookLink {
   padding: 1rem;
+  border-radius: 8px;
   background-color: #f8f9fa;
   text-decoration: none;
   color: #333;
@@ -57,6 +59,21 @@
   cursor: pointer;
   margin-bottom: 1rem;
   font-weight: 500;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 110;
+}
+
+/* オーバーレイスタイル */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
 }
 
 /* モバイル対応 */
@@ -71,12 +88,15 @@
     top: 0;
     left: 0;
     width: 80%;
+    max-width: 300px;
     height: 100%;
     background-color: white;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 100;
     padding: 1rem;
+    padding-top: 4rem; /* ボタンのためのスペース */
     overflow-y: auto;
+    animation: slideIn 0.3s ease;
   }
 
   .navOpen .sidebar {
@@ -86,23 +106,25 @@
   .navToggle {
     display: block;
   }
-
-  /* オーバーレイ（サイドナビが開いているときに背景を暗くする） */
-  .navOpen::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 90;
-  }
 }
 
 /* タブレット対応 */
 @media (min-width: 768px) and (max-width: 1023px) {
   .bookGalleryLayout {
     grid-template-columns: 1fr 2fr;
+  }
+
+  .navToggle {
+    display: none;
+  }
+}
+
+/* アニメーション */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
   }
 }

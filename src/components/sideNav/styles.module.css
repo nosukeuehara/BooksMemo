@@ -1,0 +1,64 @@
+.bookGallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bookLink {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.bookLink:hover {
+  background-color: #e9ecef;
+}
+
+.bookTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.bookAuthor {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* モバイル対応 */
+@media (max-width: 767px) {
+  .bookGalleryLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* タブレット対応 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bookGalleryLayout {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .navToggle {
+    display: none;
+  }
+}
+
+/* アニメーション */
+@keyframes slideIn {
+  from {
+    transform: translateX(-10%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.open {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.close {
+  display: none;
+}
