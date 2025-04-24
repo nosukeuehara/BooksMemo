@@ -59,16 +59,14 @@ const Editor = ({ book }: { book: BookViewData }) => {
 
       const result = await actionUpdateBookInfo(updateData);
 
-      // オプショナルチェーニングを使用して安全にアクセス
       if (result?.error) {
         setError(result.error);
       } else {
         setSuccessMessage("更新が完了しました！");
-        // 3秒後に成功メッセージを非表示にする
         setTimeout(() => {
           setSuccessMessage("");
         }, 3000);
-        router.refresh();
+        router.push(`/${book.id}`);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -83,7 +81,6 @@ const Editor = ({ book }: { book: BookViewData }) => {
 
   return (
     <div className={styles.reviewArea}>
-      {/* 通知コンテナ */}
       <div className={styles.notificationContainer}>
         {error && (
           <Notification

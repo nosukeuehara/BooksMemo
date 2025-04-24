@@ -1,87 +1,108 @@
-.skeletonContainer {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.skeletonHeader {
-  margin-bottom: 24px;
-}
-
-.skeletonTitle {
-  height: 32px;
-  width: 70%;
-  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-  margin-bottom: 12px;
-}
-
-.skeletonAuthor {
-  height: 20px;
-  width: 40%;
-  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-}
-
-.skeletonDetails {
-  margin-bottom: 24px;
-}
-
-.skeletonRow {
-  height: 18px;
+.container {
+  position: relative;
   width: 100%;
-  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-  margin-bottom: 12px;
 }
 
-.skeletonReview {
-  padding-top: 16px;
-  border-top: 1px solid #eaeaea;
+.bookGalleryLayout {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
 }
 
-.skeletonReviewHeader {
-  height: 24px;
-  width: 30%;
-  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-  margin-bottom: 16px;
+.bookGallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.skeletonReviewContent {
-  height: 16px;
-  width: 100%;
-  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-  margin-bottom: 10px;
+.bookLink {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.2s ease;
 }
 
-.errorMessage {
-  padding: 16px;
-  background-color: #fff4f4;
-  border: 1px solid #ffcaca;
+.bookLink:hover {
+  background-color: #e9ecef;
+}
+
+.activeBook {
+  background-color: #e9ecef;
+  border-left: 4px solid #0070f3;
+}
+
+.bookTitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.bookAuthor {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.contentArea {
+  padding: 1rem;
+}
+
+/* ナビゲーションボタン（デフォルトでは非表示） */
+.navToggle {
+  display: none;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
-  color: #d42626;
-  text-align: center;
+  cursor: pointer;
+  margin-bottom: 1rem;
   font-weight: 500;
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
+/* モバイル対応 */
+@media (max-width: 767px) {
+  .bookGalleryLayout {
+    grid-template-columns: 1fr;
   }
-  100% {
-    background-position: 200% 0;
+
+  .sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  .navOpen .sidebar {
+    display: block;
+  }
+
+  .navToggle {
+    display: block;
+  }
+
+  /* オーバーレイ（サイドナビが開いているときに背景を暗くする） */
+  .navOpen::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+  }
+}
+
+/* タブレット対応 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bookGalleryLayout {
+    grid-template-columns: 1fr 2fr;
   }
 }
