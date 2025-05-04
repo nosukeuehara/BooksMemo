@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import styles from "./page.module.css";
 import Header from "@/layout/Header/Header";
-import Navigation from "@/components/navi/Navigation";
 import "@mantine/core/styles.css";
 import {
   ColorSchemeScript,
@@ -48,7 +47,6 @@ export default async function RootLayout({
         <MantineProvider theme={theme}>
           <DatesProvider settings={{ firstDayOfWeek: 0, locale: "ja" }}>
             <Header userInfo={user} />
-            <Navigation />
             <div className={`${styles.body_container}`}>{children}</div>
           </DatesProvider>
         </MantineProvider>

@@ -12,7 +12,7 @@ export const BookCard = (props: { book: BookViewData }) => {
   return (
     <div className={`${styles.bookCard}`}>
       <Link
-        href={props.book.id}
+        href={`/books/${props.book.id}`}
         aria-labelledby={`title-${props.book.id}`}
         role="article"
       >
@@ -33,7 +33,7 @@ export const BookCard = (props: { book: BookViewData }) => {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    router.push(`/${props.book.id}/edit`);
+                    router.push(`books/${props.book.id}/edit`);
                   }}
                   leftSection={<Edit size={14} />}
                 >

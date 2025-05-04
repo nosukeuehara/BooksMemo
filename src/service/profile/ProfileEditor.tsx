@@ -108,7 +108,7 @@ const ProfileEditor = ({ profile }: ProfileProps) => {
           </Input.Wrapper>
         </div>
 
-        <Group justify="space-between">
+        <Group justify="center" mt="md">
           <Button type="submit" onClick={handleSubmit} loading={isSubmitting}>
             保存
           </Button>

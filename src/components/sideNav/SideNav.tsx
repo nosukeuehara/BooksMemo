@@ -11,7 +11,7 @@ export function SideNav({
   isOpen: boolean;
   toggleMenu: () => void;
 }) {
-  const pathname = usePathname().trim().replace(/^\//, "");
+  const pathname = usePathname().split("/").pop();
   return (
     <div
       className={`${styles.sideNavContainer} ${
