@@ -1,6 +1,7 @@
 "use client";
 import { BookViewData } from "@/types";
 import styles from "./styles.module.css";
+import { usePathname } from "next/navigation";
 
 export function SideNav({
   books,
@@ -10,6 +11,7 @@ export function SideNav({
   isOpen: boolean;
   toggleMenu: () => void;
 }) {
+  const pathname = usePathname().trim().replace(/^\//, "");
   return (
     <div
       className={`${styles.sideNavContainer} ${
@@ -17,16 +19,22 @@ export function SideNav({
       }`}
     >
       <div className={styles.sideNavHeader}>
-        <h3>Book Gallery</h3>
+        <h3>📖本棚📖</h3>
       </div>
 
       <div className={styles.bookGallery}>
-        {books.map((book) => (
-          <a href={book.id} key={book.id}>
-            <p className={styles.bookTitle}>{book.title}</p>
-            <p className={styles.bookAuthor}>{book.author}</p>
-          </a>
-        ))}
+        {books.map((book) => {
+          return (
+            <a
+              href={book.id}
+              key={book.id}
+              className={book.id === pathname ? styles.selected : ""}
+            >
+              <p className={styles.bookTitle}>{book.title}</p>
+              <p className={styles.bookAuthor}>{book.author}</p>
+            </a>
+          );
+        })}
       </div>
     </div>
   );
