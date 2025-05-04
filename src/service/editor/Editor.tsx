@@ -66,7 +66,7 @@ const Editor = ({ book }: { book: BookViewData }) => {
         setTimeout(() => {
           setSuccessMessage("");
         }, 3000);
-        router.push(`/${book.id}`);
+        router.push(`/books/${book.id}`);
       }
     } catch (err) {
       if (err instanceof Error) {

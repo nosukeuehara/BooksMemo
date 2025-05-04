@@ -51,7 +51,7 @@ const BookRegister = () => {
         throw new Error(response.error || "本の登録に失敗しました");
       }
 
-      router.push("/");
+      router.push("/books");
       router.refresh();
     } catch (err) {
       if (err instanceof Error) {

@@ -10,7 +10,7 @@ const Header = async ({ userInfo }: { userInfo: UserInfo | undefined }) => {
   return (
     <header className={styles.header_container}>
       <div className={styles.header_content}>
-        <Link href="/" className={styles.logo_link}>
+        <Link href="/books" className={styles.logo_link}>
           <span>📚coto</span>
         </Link>
         <UserButton userName={userInfo.name}>
