@@ -26,7 +26,7 @@ export async function login(formData: FormData) {
   const { error, data: authData } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
-    redirect('/error')
+    redirect('/login/error')
   }
 
   // ユーザーのプロフィールが存在するか確認
@@ -91,4 +91,29 @@ export async function signout() {
   }
 
   redirect('/login')
+}
+
+/**
+ * OAuthログイン
+  *
+  * GoogleのOAuthログインを実行する。
+  * ログインが成功した場合は、Supabaseの認証フローに従ってリダイレクトされる。
+  *
+  * @returns void
+ */
+export async function oauthLogin() {
+  const supabase = await _createServerClient()
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: 'http://localhost:3000/api/auth/callback',
+    },
+  })
+  if (data.url) {
+    redirect(data.url)
+  }
+  if (error) {
+    redirect('/error')
+  }
 }

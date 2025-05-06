@@ -13,10 +13,10 @@ const Navigation = () => {
       <ul className={styles.nav_list}>
         <li
           className={`${styles.nav_item} ${
-            pathname === "/" ? styles.active : ""
+            pathname === "/books" ? styles.active : ""
           }`}
         >
-          <Link href="/" className={styles.nav_link}>
+          <Link href="/books" className={styles.nav_link}>
             <span className={styles.nav_item__text}>一覧</span>
           </Link>
         </li>

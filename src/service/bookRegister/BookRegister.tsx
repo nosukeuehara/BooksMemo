@@ -126,7 +126,11 @@ const BookRegister = () => {
           radius="xl"
           variant="light"
           color="gray"
-          onClick={() => router.push("/")}
+          onClick={() => {
+            if (window.confirm("キャンセルして書籍一覧に戻りますか？")) {
+              router.push("/books");
+            }
+          }}
         >
           キャンセル
         </Button>
