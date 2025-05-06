@@ -1,7 +1,7 @@
 import { type EmailOtpType } from '@supabase/supabase-js'
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { createClientServer } from '@/lib/supabase/server'
+import { _createServerClient } from '@/lib/supabase/server'
 
 // 確認処理
 export async function GET(request: NextRequest) {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
   // token_hashとtypeが存在する場合
   if (token_hash && type) {
     // Supabaseクライアントを作成
-    const supabase = await createClientServer()
+    const supabase = await _createServerClient()
 
     const error = supabase.auth.verifyOtp({
       type,

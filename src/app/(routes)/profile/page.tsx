@@ -1,11 +1,11 @@
 import React from "react";
-import { createClientServer } from "@/lib/supabase/server";
+import { _createServerClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import ProfileEditor from "@/service/profile/ProfileEditor";
 import { fetchUserProfile } from "@/lib/api/auth/profile";
 
 const ProfilePage = async () => {
-  const supabase = await createClientServer();
+  const supabase = await _createServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

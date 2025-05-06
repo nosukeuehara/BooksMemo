@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { createClientServer } from "@/lib/supabase/server";
+import { _createServerClient } from "@/lib/supabase/server";
 
 // Helper function to check book ownership
 async function checkBookOwnership(bookId: string, userEmail: string) {
@@ -37,7 +37,7 @@ export async function GET(
       );
     }
 
-    const supabase = await createClientServer();
+    const supabase = await _createServerClient();
 
     // トークンを使用してユーザー情報を取得
     const { data: { user }, error } = await supabase.auth.getUser(token);
@@ -81,7 +81,7 @@ export async function PUT(
       );
     }
 
-    const supabase = await createClientServer();
+    const supabase = await _createServerClient();
 
     // トークンを使用してユーザー情報を取得
     const { data: { user }, error } = await supabase.auth.getUser(token);
@@ -140,7 +140,7 @@ export async function DELETE(
       );
     }
 
-    const supabase = await createClientServer();
+    const supabase = await _createServerClient();
 
     // トークンを使用してユーザー情報を取得
     const { data: { user }, error } = await supabase.auth.getUser(token)

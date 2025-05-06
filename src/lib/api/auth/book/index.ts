@@ -1,5 +1,5 @@
-import { createClient } from "@/lib/supabase/client";
-import { createClientServer } from "@/lib/supabase/server";
+import { _createBrowserClient } from "@/lib/supabase/client";
+import { _createServerClient } from "@/lib/supabase/server";
 import { BookViewData } from "@/types";
 import { getBaseUrl } from "@/utils/baseUrl";
 import { Book } from "@prisma/client";
@@ -10,7 +10,7 @@ import { NextResponse } from "next/server";
  * @returns {Promise<BookViewData[]>}
  */
 export async function fetchAllBooks(): Promise<BookViewData[]> {
-  const supabase = typeof window === 'undefined' ? await createClientServer() : await createClient()
+  const supabase = typeof window === 'undefined' ? await _createServerClient() : await _createBrowserClient()
   const BASE_URL = getBaseUrl();
   try {
     const response = await fetch(`${BASE_URL}/api/auth/books`, {
@@ -37,7 +37,7 @@ export async function fetchAllBooks(): Promise<BookViewData[]> {
  * @returns 
  */
 export async function fetchBookById(bookId: string): Promise<BookViewData> {
-  const supabase = typeof window === 'undefined' ? await createClientServer() : await createClient()
+  const supabase = typeof window === 'undefined' ? await _createServerClient() : await _createBrowserClient()
   const BASE_URL = getBaseUrl();
   try {
     const response = await fetch(`${BASE_URL}/api/auth/books/${bookId}`, {
@@ -58,7 +58,7 @@ export async function fetchBookById(bookId: string): Promise<BookViewData> {
 }
 
 export async function registBookData(registBookData: { title: string, author: string, borrowedDate: string, dueDate: string, review: string }) {
-  const supabase = await createClientServer();
+  const supabase = await _createServerClient();
   const BASE_URL = getBaseUrl();
   try {
     const response = await fetch(`${BASE_URL}/api/auth/books`, {
@@ -88,7 +88,7 @@ export async function registBookData(registBookData: { title: string, author: st
  * @returns 
  */
 export async function updateBookData(bookData: Book): Promise<BookViewData> {
-  const supabase = await createClientServer()
+  const supabase = await _createServerClient()
   const BASE_URL = getBaseUrl();
   try {
     if (bookData.userId !== (await supabase.auth.getUser()).data.user?.id) {
@@ -124,7 +124,7 @@ export async function deleteBookById(bookId: string): Promise<NextResponse<{
 }> | NextResponse<{
   message: string;
 }>> {
-  const supabase = await createClientServer();
+  const supabase = await _createServerClient();
   const BASE_URL = getBaseUrl();
   try {
     const response = await fetch(`${BASE_URL}/api/auth/books/${bookId}`, {

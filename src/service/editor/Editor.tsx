@@ -13,12 +13,12 @@ import { DatePickerInput } from "@mantine/dates";
 import { useRouter } from "next/navigation";
 import { BookViewData } from "@/types";
 import { Book } from "@prisma/client";
-import { createClient } from "@/lib/supabase/client";
+import { _createBrowserClient } from "@/lib/supabase/client";
 import { actionUpdateBookInfo } from "./actions";
 import { BookCheck } from "lucide-react";
 
 const Editor = ({ book }: { book: BookViewData }) => {
-  const user = createClient();
+  const user = _createBrowserClient();
   const router = useRouter();
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
