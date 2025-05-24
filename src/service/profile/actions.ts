@@ -2,7 +2,6 @@
 import { updateUserProfile } from "@/lib/api/auth/profile"
 
 export async function actionUpdateProfileData(formData: FormData) {
-  console.log(formData)
   try {
     const data = {
       name: formData.get("name") as string
