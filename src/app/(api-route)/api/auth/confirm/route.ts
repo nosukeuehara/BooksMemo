@@ -22,10 +22,13 @@ export async function GET(request: NextRequest) {
     // Supabaseクライアントを作成
     const supabase = await _createServerClient()
 
-    const error = supabase.auth.verifyOtp({
+    const { data, error } = await supabase.auth.verifyOtp({
       type,
       token_hash,
     })
+
+    console.debug('verifyOtp', { data, error })
+
     // 確認成功した場合
     if (!error) {
       // ログインページにリダイレクト
