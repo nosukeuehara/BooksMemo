@@ -71,7 +71,7 @@ const BookRegister = () => {
         <div>
           <Input
             variant="unstyled"
-            size="xl"
+            size="lg"
             placeholder={"タイトルを入力"}
             value={title}
             ref={inputRef}
@@ -89,6 +89,7 @@ const BookRegister = () => {
         </div>
         <div>
           <DatePickerInput
+            dropdownType="modal"
             size="lg"
             variant="unstyled"
             type="range"

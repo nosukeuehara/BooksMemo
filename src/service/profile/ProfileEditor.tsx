@@ -43,15 +43,8 @@ const ProfileEditor = ({ profile }: ProfileProps) => {
 
       setSuccess("プロフィールを保存しました");
 
-      // プロフィールが新規作成の場合、ホームページへリダイレクト
-      if (!profile.exists) {
-        setTimeout(() => {
-          router.push("/");
-          router.refresh();
-        }, 1500);
-      } else {
-        router.refresh();
-      }
+      router.push("/books");
+      router.refresh();
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
