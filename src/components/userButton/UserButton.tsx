@@ -11,7 +11,7 @@ export function UserButton({
   return (
     <Menu position="bottom-end" offset={5}>
       <Menu.Target>
-        <Avatar name={userName ?? ""} color="initials" />
+        <Avatar size="md" name={userName ?? ""} color="initials" />
       </Menu.Target>
 
       <Menu.Dropdown>{children}</Menu.Dropdown>

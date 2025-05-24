@@ -6,6 +6,7 @@ import styles from "./bookRegister.module.css";
 import { DatePickerInput } from "@mantine/dates";
 import { useRouter } from "next/navigation";
 import { actionPostBookData } from "./actions";
+import { useMediaQuery } from "@mantine/hooks";
 
 const BookRegister = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const BookRegister = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const matches = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     // Focus the input field when the component mounts
@@ -71,7 +73,7 @@ const BookRegister = () => {
         <div>
           <Input
             variant="unstyled"
-            size="lg"
+            size={matches ? "sm" : "lg"}
             placeholder={"タイトルを入力"}
             value={title}
             ref={inputRef}
@@ -81,7 +83,7 @@ const BookRegister = () => {
         <div>
           <Input
             variant="unstyled"
-            size="lg"
+            size={matches ? "sm" : "lg"}
             placeholder={"著者を入力"}
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
@@ -90,7 +92,7 @@ const BookRegister = () => {
         <div>
           <DatePickerInput
             dropdownType="modal"
-            size="lg"
+            size={matches ? "sm" : "lg"}
             variant="unstyled"
             type="range"
             locale="ja"
@@ -108,7 +110,7 @@ const BookRegister = () => {
             classNames={{
               input: styles.reviewArea__padding,
             }}
-            size="lg"
+            size={matches ? "sm" : "lg"}
             placeholder={"感想を入力してみよう"}
             value={review}
             onChange={(e) => setReview(e.target.value)}
@@ -117,14 +119,16 @@ const BookRegister = () => {
       </form>
       <Group justify="center">
         <Button
-          radius="xl"
+          radius="sm"
+          size={matches ? "compact-sm" : "sm"}
           onClick={(e) => handleSubmit(e)}
           loading={isSubmitting}
         >
           完了
         </Button>
         <Button
-          radius="xl"
+          radius="sm"
+          size={matches ? "compact-sm" : "sm"}
           variant="light"
           color="gray"
           onClick={() => {

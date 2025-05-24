@@ -27,7 +27,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params; // paramsをawaitする
+    const { id } = await params;
 
     const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
@@ -72,7 +72,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params; // paramsをawaitする
+    const { id } = await params;
 
     const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
@@ -132,7 +132,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params; // paramsをawaitする
+    const { id } = await params;
 
     const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 

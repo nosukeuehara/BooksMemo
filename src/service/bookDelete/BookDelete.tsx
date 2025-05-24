@@ -35,11 +35,9 @@ const BookDelete: React.FC<BookDeleteProps> = ({
 
       setOpened(false);
 
-      // Call the onSuccess callback if provided
       if (onSuccess) {
         onSuccess();
       } else {
-        // Otherwise navigate to home page
         router.push("/");
         router.refresh();
       }
@@ -61,7 +59,6 @@ const BookDelete: React.FC<BookDeleteProps> = ({
         color="red"
         variant="transparent"
         onClick={(e) => {
-          e.preventDefault();
           e.stopPropagation();
           setOpened(true);
         }}
@@ -72,6 +69,7 @@ const BookDelete: React.FC<BookDeleteProps> = ({
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
+        onClick={(e) => e.stopPropagation()}
         title="本の削除の確認"
       >
         <Text size="sm" mb="md">
@@ -85,7 +83,13 @@ const BookDelete: React.FC<BookDeleteProps> = ({
         )}
 
         <Group mt="md">
-          <Button variant="outline" onClick={() => setOpened(false)}>
+          <Button
+            variant="outline"
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpened(false);
+            }}
+          >
             キャンセル
           </Button>
           <Button

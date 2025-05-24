@@ -1,9 +1,3 @@
 {
-  "buildCommand": "prisma generate && npm run build",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/maintenance.html"
-    }
-  ]
+  "buildCommand": "prisma generate && npm run build"
 }
