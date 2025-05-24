@@ -4,6 +4,7 @@ import { _createServerClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
+import { getBaseUrl } from '@/utils/baseUrl'
 
 /**
  * ログイン
@@ -107,7 +108,7 @@ export async function oauthLogin() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: 'http://localhost:3000/api/auth/callback',
+      redirectTo: `http://${getBaseUrl()}/api/auth/callback`,
     },
   })
   if (data.url) {
