@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function notFoundMiddleware(req: NextRequest, res: NextResponse) {
+export async function notFoundMiddleware(req: NextRequest) {
   // APIルートへのアクセスの場合
   if (req.nextUrl.pathname.startsWith('/api/')) {
     return NextResponse.json(

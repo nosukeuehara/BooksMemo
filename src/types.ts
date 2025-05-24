@@ -10,7 +10,7 @@ export interface BookViewData {
 
 export interface UpdateResult {
   error?: string;
-  [key: string]: any; // 他の任意のプロパティを許可
+  result?: BookViewData;
 }
 
 export interface UserInfo {

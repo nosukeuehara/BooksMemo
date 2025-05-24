@@ -5,7 +5,6 @@ import { BookViewData } from "@/types";
 
 export default async function Home() {
   const books: BookViewData[] = await fetchAllBooks();
-  // const books: BookViewData[] = null;
 
   if (!books) {
     return <div>本を記録してみよう</div>;

@@ -1,5 +1,4 @@
 "use server";
-// src/service/editor/actions.ts を修正
 import { updateBookData } from "@/lib/api/auth/book";
 import { UpdateResult } from "@/types";
 import { Book } from "@prisma/client";
@@ -13,7 +12,7 @@ export async function actionUpdateBookInfo(bookData: Book): Promise<UpdateResult
       throw new Error('Failed to update book');
     }
     revalidatePath('/');
-    return response;
+    return { result: response };
   } catch (error) {
     console.error("Failed to update book data", error);
     return { error: "データの更新に失敗しました。" };

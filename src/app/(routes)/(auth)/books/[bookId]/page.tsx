@@ -4,7 +4,7 @@ import BookDetailSkeleton from "@/components/bookDetailSkelton/BookDetailSkeleto
 import { BookPage } from "@/components/bookPage/BookPage";
 import { fetchBookById } from "@/lib/api/auth/book";
 
-const page = async ({ params }: { params: { bookId: string } }) => {
+const page = async ({ params }: { params: Promise<{ bookId: string }> }) => {
   const book = await fetchBookById((await params).bookId);
   return (
     <div className={styles.mainContent}>

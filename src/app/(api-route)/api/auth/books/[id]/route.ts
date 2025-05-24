@@ -24,10 +24,11 @@ async function checkBookOwnership(bookId: string, userEmail: string) {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const _params = await (params)
   try {
+    const { id } = await params; // paramsをawaitする
+
     const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
     if (!token) {
@@ -53,7 +54,7 @@ export async function GET(
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
 
-    const result = await checkBookOwnership(_params.id, user.email!);
+    const result = await checkBookOwnership(id, user.email!);
 
     if (!result?.book) {
       return NextResponse.json({ error: "Book not found or access denied" }, { status: 404 });
@@ -68,10 +69,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const _params = await (params)
   try {
+    const { id } = await params; // paramsをawaitする
+
     const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
     if (!token) {
@@ -97,7 +99,7 @@ export async function PUT(
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
 
-    const result = await checkBookOwnership(_params.id, user.email!);
+    const result = await checkBookOwnership(id, user.email!);
 
     if (!result?.book) {
       return NextResponse.json({ error: "Book not found or access denied" }, { status: 404 });
@@ -107,7 +109,7 @@ export async function PUT(
     const { title, author, borrowedDate, dueDate, review, returned } = body;
 
     const updatedBook = await prisma.book.update({
-      where: { id: _params.id },
+      where: { id },
       data: {
         title,
         author,
@@ -127,10 +129,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const _params = await (params)
   try {
+    const { id } = await params; // paramsをawaitする
+
     const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
     if (!token) {
@@ -143,7 +146,7 @@ export async function DELETE(
     const supabase = await _createServerClient();
 
     // トークンを使用してユーザー情報を取得
-    const { data: { user }, error } = await supabase.auth.getUser(token)
+    const { data: { user }, error } = await supabase.auth.getUser(token);
 
     if (error) {
       return NextResponse.json(
@@ -156,14 +159,14 @@ export async function DELETE(
       return NextResponse.json({ error: "Authentication required" }, { status: 401 });
     }
 
-    const result = await checkBookOwnership(_params.id, user.email!);
+    const result = await checkBookOwnership(id, user.email!);
 
     if (!result?.book) {
       return NextResponse.json({ error: "Book not found or access denied" }, { status: 404 });
     }
 
     await prisma.book.delete({
-      where: { id: _params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: "Book deleted successfully" });
