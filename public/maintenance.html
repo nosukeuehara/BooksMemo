@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メンテナンス中 - サイトメンテナンス</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .circle1 {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .circle2 {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .circle3 {
+      width: 60px;
+      height: 60px;
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) scale(1);
+      }
+
+      50% {
+        transform: translateY(-20px) scale(1.1);
+      }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .maintenance-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
+    }
+
+    .maintenance-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: white;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      color: #333;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .status-info {
+      background: linear-gradient(135deg, #f8f9ff, #e8ecff);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border: 1px solid #e0e6ff;
+    }
+
+    .status-title {
+      color: #4c6ef5;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+
+    .time-info {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #e9ecef;
+      border-radius: 3px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 3px;
+      animation: progress 3s ease-in-out infinite;
+    }
+
+    @keyframes progress {
+      0% {
+        width: 30%;
+      }
+
+      50% {
+        width: 70%;
+      }
+
+      100% {
+        width: 30%;
+      }
+    }
+
+    .contact-info {
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #856404;
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .social-link:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-animation">
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+  </div>
+
+  <div class="container">
+    <div class="maintenance-icon">
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+      </svg>
+    </div>
+
+    <h1>メンテナンス中</h1>
+    <p class="subtitle">
+      現在、システムのメンテナンスを実施しております。<br>
+      ご不便をおかけして申し訳ございません。
+    </p>
+
+    <div class="status-info">
+      <div class="status-title">📅 メンテナンス予定</div>
+      <div class="time-info">
+        <strong>開始:</strong> 2024年12月15日 02:00<br>
+        <strong>終了予定:</strong> 2024年12月15日 06:00<br>
+        <strong>内容:</strong> システムアップデートおよび<br>パフォーマンス改善
+      </div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="contact-info">
+      <strong>💡 お困りの場合</strong><br>
+      緊急のお問い合わせは、以下の連絡先までご連絡ください。<br>
+      📧 support@example.com<br>
+      📞 03-1234-5678
+    </div>
+
+    <div class="social-links">
+      <a href="#" class="social-link">📱 Twitter</a>
+      <a href="#" class="social-link">📢 お知らせ</a>
+    </div>
+  </div>
+
+  <script>
+    // リアルタイム時計の表示
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleString('ja-JP', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+
+      // 時刻表示要素があれば更新（必要に応じて追加可能）
+    }
+
+    // 自動リロード機能（オプション）
+    function autoReload() {
+      // 30分後に自動でページをリロード
+      setTimeout(() => {
+        window.location.reload();
+      }, 30 * 60 * 1000);
+    }
+
+    // ページ読み込み時に実行
+    window.addEventListener('load', () => {
+      updateTime();
+      autoReload();
+    });
+
+    // 1秒ごとに時刻を更新
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+
+</html>
