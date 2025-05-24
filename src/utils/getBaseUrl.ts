@@ -1,11 +1,10 @@
-import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers"
+export const getBaseUrl = async (isServer: boolean) => {
 
-export const getBaseUrl = async (isServer: boolean, headers?: () => Promise<ReadonlyHeaders>) => {
-
-  if (isServer && headers) {
+  if (isServer) {
     // サーバーサイドの場合
     try {
-      const headersList = await headers()
+      const { headers } = await import('next/headers');
+      const headersList = await headers();
       const host = headersList.get('host')
       const protocol = headersList.get('x-forwarded-proto') || 'http'
       return `${protocol}://${host}`

@@ -3,7 +3,6 @@ import { _createServerClient } from "@/lib/supabase/server";
 import { BookViewData } from "@/types";
 import { getBaseUrl } from "@/utils/getBaseUrl";
 import { Book } from "@prisma/client";
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 /**
@@ -14,7 +13,7 @@ export async function fetchAllBooks(): Promise<BookViewData[]> {
   const supabase = typeof window === 'undefined' ? await _createServerClient() : await _createBrowserClient()
   const isServer = typeof window === 'undefined'
   try {
-    const response = await fetch(`${getBaseUrl(isServer, isServer ? headers : undefined)}/api/auth/books`, {
+    const response = await fetch(`${getBaseUrl(isServer)}/api/auth/books`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +40,7 @@ export async function fetchBookById(bookId: string): Promise<BookViewData> {
   const supabase = typeof window === 'undefined' ? await _createServerClient() : await _createBrowserClient()
   const isServer = typeof window === 'undefined'
   try {
-    const response = await fetch(`${getBaseUrl(isServer, isServer ? headers : undefined)}/api/auth/books/${bookId}`, {
+    const response = await fetch(`${getBaseUrl(isServer)}/api/auth/books/${bookId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +61,7 @@ export async function registBookData(registBookData: { title: string, author: st
   const supabase = await _createServerClient();
   const isServer = typeof window === 'undefined'
   try {
-    const response = await fetch(`${getBaseUrl(isServer, isServer ? headers : undefined)}/api/auth/books`, {
+    const response = await fetch(`${getBaseUrl(isServer)}/api/auth/books`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +94,7 @@ export async function updateBookData(bookData: Book): Promise<BookViewData> {
     if (bookData.userId !== (await supabase.auth.getUser()).data.user?.id) {
       throw new Error("you have no data")
     }
-    const response = await fetch(`${getBaseUrl(isServer, isServer ? headers : undefined)}/api/auth/books/${bookData.id}`, {
+    const response = await fetch(`${getBaseUrl(isServer)}/api/auth/books/${bookData.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -128,7 +127,7 @@ export async function deleteBookById(bookId: string): Promise<NextResponse<{
   const supabase = await _createServerClient();
   const isServer = typeof window === 'undefined'
   try {
-    const response = await fetch(`${getBaseUrl(isServer, isServer ? headers : undefined)}/api/auth/books/${bookId}`, {
+    const response = await fetch(`${getBaseUrl(isServer)}/api/auth/books/${bookId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
