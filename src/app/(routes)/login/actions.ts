@@ -104,8 +104,9 @@ export async function signout() {
  */
 export async function oauthLogin() {
   const supabase = await _createServerClient()
+  const isServer = typeof window === 'undefined'
 
-  const redirectUrl = `${getBaseUrl()}/api/auth/callback`
+  const redirectUrl = `${getBaseUrl(isServer)}/api/auth/callback`
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",

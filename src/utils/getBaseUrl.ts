@@ -1,7 +1,7 @@
 import { headers } from "next/headers"
 
-export const getBaseUrl = async () => {
-  const isServer = typeof window === 'undefined'
+export const getBaseUrl = async (isServer: boolean) => {
+
   if (isServer) {
     // サーバーサイドの場合
     try {
