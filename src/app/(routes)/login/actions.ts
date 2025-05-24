@@ -106,8 +106,8 @@ export async function oauthLogin() {
   const supabase = await _createServerClient()
   const isServer = typeof window === 'undefined'
 
-  const redirectUrl = `${getBaseUrl(isServer)}/api/auth/callback`
-
+  const redirectUrl = `${await getBaseUrl(isServer)}/api/auth/callback`
+  console.log('redirectUrl', redirectUrl)
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
