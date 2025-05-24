@@ -1,14 +1,11 @@
 import { _createServerClient } from "@/lib/supabase/server";
+import { getBaseUrl } from "@/utils/getBaseUrl";
 import { User } from "@prisma/client";
-import { headers } from "next/headers";
 
 export async function fetchUserProfile() {
   const supabase = await _createServerClient();
-  const headersList = await headers()
-  const host = headersList.get('host')
-  const protocol = headersList.get('x-forwarded-proto') || 'http'
   try {
-    const response = await fetch(`${protocol}://${host}/api/auth/profile`, {
+    const response = await fetch(`${getBaseUrl()}/api/auth/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,11 +37,8 @@ export async function fetchUserProfile() {
  */
 export async function updateUserProfile(updataData: { name: string }) {
   const supabase = await _createServerClient();
-  const headersList = await headers()
-  const host = headersList.get('host')
-  const protocol = headersList.get('x-forwarded-proto') || 'http'
   try {
-    const response = await fetch(`${protocol}://${host}/api/auth/profile`, {
+    const response = await fetch(`${getBaseUrl()}/api/auth/profile`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

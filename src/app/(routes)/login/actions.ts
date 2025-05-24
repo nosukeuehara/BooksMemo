@@ -4,7 +4,7 @@ import { _createServerClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
-import { headers } from 'next/headers'
+import { getBaseUrl } from '@/utils/getBaseUrl'
 
 /**
  * ログイン
@@ -105,11 +105,7 @@ export async function signout() {
 export async function oauthLogin() {
   const supabase = await _createServerClient()
 
-  const headersList = await headers()
-  const host = headersList.get('host')
-  const protocol = headersList.get('x-forwarded-proto') || 'http'
-
-  const redirectUrl = `${protocol}://${host}/api/auth/callback`
+  const redirectUrl = `${getBaseUrl()}/api/auth/callback`
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
