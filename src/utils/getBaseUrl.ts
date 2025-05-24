@@ -1,8 +1,8 @@
-import { headers } from "next/headers"
+import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers"
 
-export const getBaseUrl = async (isServer: boolean) => {
+export const getBaseUrl = async (isServer: boolean, headers?: () => Promise<ReadonlyHeaders>) => {
 
-  if (isServer) {
+  if (isServer && headers) {
     // サーバーサイドの場合
     try {
       const headersList = await headers()

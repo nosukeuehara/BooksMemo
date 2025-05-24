@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
 import { getBaseUrl } from '@/utils/getBaseUrl'
+import { headers } from 'next/headers'
 
 /**
  * ログイン
@@ -106,7 +107,7 @@ export async function oauthLogin() {
   const supabase = await _createServerClient()
   const isServer = typeof window === 'undefined'
 
-  const redirectUrl = `${getBaseUrl(isServer)}/api/auth/callback`
+  const redirectUrl = `${getBaseUrl(isServer, isServer ? headers : undefined)}/api/auth/callback`
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
