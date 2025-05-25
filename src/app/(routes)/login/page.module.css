@@ -10,7 +10,7 @@
 .formContainer {
   width: 100%;
   max-width: 420px;
-  padding: 2rem 2rem 0rem;
+  padding: 2rem 0rem 0rem;
   border-radius: 0.5rem;
 }
 
@@ -115,8 +115,9 @@
 }
 
 .buttonGroup {
-  display: flex;
+  display: grid;
   gap: 0.75rem;
+  justify-items: center;
 }
 
 .primaryButton {
@@ -125,6 +126,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 17rem;
   padding: 0.625rem 1rem;
   background-color: #4f46e5;
   color: white;
@@ -153,6 +155,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 17rem;
   padding: 0.625rem 1rem;
   background-color: #6b7280;
   color: white;

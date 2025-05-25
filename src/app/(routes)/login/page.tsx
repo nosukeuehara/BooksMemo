@@ -1,11 +1,12 @@
-import { login, oauthLogin, signup } from "./actions";
+import Link from "next/link";
+import { login, oauthLogin } from "./actions";
 import styles from "./page.module.css";
 
 export default async function LoginPage() {
   return (
     <div className={styles.pageContainer}>
       <form className={styles.formContainer}>
-        <h1 className={styles.title}>アカウントにログイン</h1>
+        <h1 className={styles.title}>ログイン</h1>
 
         <div className={styles.inputGroup}>
           <label htmlFor="email" className={styles.label}>
@@ -95,9 +96,9 @@ export default async function LoginPage() {
             ログイン
           </button>
 
-          <button formAction={signup} className={styles.secondaryButton}>
+          <Link href="./createAccount" className={styles.secondaryButton}>
             新規登録
-          </button>
+          </Link>
         </div>
       </form>
       <div className={styles.divider}>
