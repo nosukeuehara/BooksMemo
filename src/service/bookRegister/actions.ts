@@ -12,7 +12,7 @@ export async function actionPostBookData(formData: FormData) {
     }
 
     // Validate data
-    if (!data.title || !data.author || !data.borrowedDate || !data.dueDate) {
+    if (!data.title || !data.author) {
       return { error: "すべての必須フィールドを入力してください" };
     }
 

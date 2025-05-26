@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     const { title, author, borrowedDate, dueDate, review } = await request.json();
 
-    if (!title || !author || !borrowedDate || !dueDate) {
+    if (!title || !author) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -59,8 +59,8 @@ export async function POST(request: NextRequest) {
       data: {
         title,
         author,
-        borrowedDate: new Date(borrowedDate),
-        dueDate: new Date(dueDate),
+        borrowedDate: !borrowedDate ? null : new Date(borrowedDate),
+        dueDate: !dueDate ? null : new Date(dueDate),
         review: review || "",
         user: {
           connect: { id: dbUser.id }
@@ -70,9 +70,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(book, { status: 201 });
   } catch (error) {
-    console.error("Error creating book:", error);
     return NextResponse.json(
-      { error: "Failed to create book" },
+      { error: `Failed to create book ${error}` },
       { status: 500 }
     );
   }
