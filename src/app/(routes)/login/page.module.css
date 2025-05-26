@@ -40,7 +40,6 @@
 
 .input {
   width: 100%;
-  padding: 0.625rem 0.75rem 0.625rem 2.5rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: #111827;
@@ -232,7 +231,34 @@
 
 .errorMessage {
   color: #ff4444;
-  margin-bottom: 1.5rem;
+  margin: 0 auto 1.5rem;
   text-align: center;
   font-size: 1.1rem;
+}
+
+.resetForm {
+  display: grid;
+  gap: 1rem;
+}
+
+.resetButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.625rem 1rem;
+  color: #e54646;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  margin: 0 auto;
+  width: 100%;
+  background-color: transparent;
+}
+
+.modalTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 1rem;
 }

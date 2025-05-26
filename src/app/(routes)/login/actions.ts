@@ -80,7 +80,6 @@ export async function oauthLogin() {
   const isServer = typeof window === 'undefined'
 
   const redirectUrl = `${await getBaseUrl(isServer)}/api/auth/callback`
-  console.log('redirectUrl', redirectUrl)
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
@@ -92,5 +91,23 @@ export async function oauthLogin() {
   }
   if (error) {
     redirect('/error')
+  }
+}
+
+export async function resetPassword(formData: FormData) {
+  const supabase = await _createServerClient()
+  const isServer = typeof window === 'undefined'
+
+  const _formData = {
+    email: formData.get('email') as string,
+  }
+  const { data, error } = await supabase.auth.resetPasswordForEmail(_formData.email, {
+    redirectTo: `${await getBaseUrl(isServer)}/updatePassword`,
+  })
+  if (error) {
+    redirect('/error')
+  }
+  if (data) {
+    console.log('Password reset email sent:', data)
   }
 }

@@ -1,7 +1,6 @@
 'use server'
 
 import { _createServerClient } from "@/lib/supabase/server"
-import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 /**
@@ -26,7 +25,4 @@ export async function signup(formData: FormData) {
   if (error) {
     redirect('/error')
   }
-
-  revalidatePath('/profile', 'page')
-  redirect('/profile')
 }
