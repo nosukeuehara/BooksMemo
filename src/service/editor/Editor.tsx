@@ -35,7 +35,7 @@ const Editor = ({ book }: { book: BookViewData }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!title || !author || !value[0] || !value[1]) {
+    if (!title || !author) {
       setError("すべての必須フィールドを入力してください");
       return;
     }

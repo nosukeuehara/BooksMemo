@@ -48,33 +48,6 @@ export async function login(formData: FormData) {
 }
 
 /**
- * サインアップ
- *
- * サインアップが成功した場合はプロフィール作成ページへリダイレクトする。
- * サインアップに失敗した場合はエラーページへリダイレクトする。
- *
- * @param formData - フォームから受け取ったデータ
- * @returns void
- */
-export async function signup(formData: FormData) {
-  const supabase = await _createServerClient()
-
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  }
-
-  const { error } = await supabase.auth.signUp(data)
-
-  if (error) {
-    redirect('/error')
-  }
-
-  revalidatePath('/profile', 'page')
-  redirect('/profile')
-}
-
-/**
  * サインアウト
  *
  * サインアウトが成功した場合はログインページへリダイレクトする。
@@ -107,7 +80,6 @@ export async function oauthLogin() {
   const isServer = typeof window === 'undefined'
 
   const redirectUrl = `${await getBaseUrl(isServer)}/api/auth/callback`
-  console.log('redirectUrl', redirectUrl)
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
@@ -119,5 +91,23 @@ export async function oauthLogin() {
   }
   if (error) {
     redirect('/error')
+  }
+}
+
+export async function resetPassword(formData: FormData) {
+  const supabase = await _createServerClient()
+  const isServer = typeof window === 'undefined'
+
+  const _formData = {
+    email: formData.get('email') as string,
+  }
+  const { data, error } = await supabase.auth.resetPasswordForEmail(_formData.email, {
+    redirectTo: `${await getBaseUrl(isServer)}/updatePassword`,
+  })
+  if (error) {
+    redirect('/error')
+  }
+  if (data) {
+    console.log('Password reset email sent:', data)
   }
 }

@@ -33,7 +33,7 @@
 }
 
 .nav_item__text {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: #666;
 }
@@ -57,9 +57,5 @@
 @media (max-width: 640px) {
   .nav_list {
     justify-content: center;
-  }
-
-  .nav_link {
-    padding: 0.5rem 0.75rem;
   }
 }

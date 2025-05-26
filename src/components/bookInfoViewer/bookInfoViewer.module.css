@@ -19,3 +19,23 @@
   font-size: 1.2rem;
   color: #333;
 }
+
+@media screen and (max-width: 740px) {
+  .bookInfoViewer {
+    padding: 1rem;
+  }
+
+  .bookTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .bookAuthor {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .bookReview {
+    font-size: 1rem;
+  }
+}

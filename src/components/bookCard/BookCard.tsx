@@ -54,7 +54,12 @@ export const BookCard = (props: { book: BookViewData }) => {
             </div>
             <span className={`${styles.book_author}`}>{props.book.author}</span>
           </div>
-          <div className={`${styles.secondaryInfo}`}>
+          <div
+            className={`${styles.secondaryInfo}`}
+            style={
+              !props.book.dueDate ? { display: "none" } : { display: "block" }
+            }
+          >
             <Calendar size={16} className={`${styles.dueDate_calender_icon}`} />
             <span className={`${styles.dueDate_text}`}>
               {new Date(props.book.dueDate).toLocaleDateString("ja-JP")}

@@ -9,7 +9,7 @@ interface BookInfoProps {
 
 const BookInfoViewer = ({ book }: BookInfoProps) => {
   return (
-    <Paper shadow="sm" radius="xs" p="xl" mih="500">
+    <Paper shadow="sm" radius="xs" py="lg" px="md" mih="500">
       <Text className={styles.bookTitle}>{book.title}</Text>
       <Text className={styles.bookAuthor}>{book.author}</Text>
       <Text className={styles.bookReview}>{book.review}</Text>

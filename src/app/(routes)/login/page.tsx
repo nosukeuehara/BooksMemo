@@ -1,11 +1,17 @@
-import { login, oauthLogin, signup } from "./actions";
+"use client";
+import Link from "next/link";
+import { login, oauthLogin, resetPassword } from "./actions";
 import styles from "./page.module.css";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal, Button, Input } from "@mantine/core";
+import { LockKeyhole, Mail } from "lucide-react";
 
-export default async function LoginPage() {
+export default function LoginPage() {
+  const [opened, { open, close }] = useDisclosure(false);
   return (
     <div className={styles.pageContainer}>
       <form className={styles.formContainer}>
-        <h1 className={styles.title}>アカウントにログイン</h1>
+        <h1 className={styles.title}>ログイン</h1>
 
         <div className={styles.inputGroup}>
           <label htmlFor="email" className={styles.label}>
@@ -27,7 +33,8 @@ export default async function LoginPage() {
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
             </span>
-            <input
+            <Input
+              leftSection={<Mail size="25px" />}
               id="email"
               name="email"
               type="email"
@@ -58,7 +65,8 @@ export default async function LoginPage() {
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
             </span>
-            <input
+            <Input
+              leftSection={<LockKeyhole size={25} />}
               id="password"
               name="password"
               type="password"
@@ -69,11 +77,38 @@ export default async function LoginPage() {
           </div>
         </div>
 
-        <div className={styles.optionsRow}>
-          <a href="#" className={styles.forgotPassword}>
-            パスワードをお忘れですか？
-          </a>
-        </div>
+        <Modal opened={opened} onClose={close} withCloseButton={false} centered>
+          <p className={styles.modalTitle}>
+            パスワードリセット用のリンクを送信します。
+          </p>
+          <form className={styles.resetForm}>
+            <div className={styles.inputWrapper}>
+              <label htmlFor="email" className={styles.label}>
+                メールアドレス
+              </label>
+              <Input
+                leftSection={<Mail size="25px" />}
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="your-email@example.com"
+              />
+            </div>
+            <button className={styles.resetButton} formAction={resetPassword}>
+              リンクを送信
+            </button>
+          </form>
+        </Modal>
+
+        <Button
+          className={styles.forgotPassword}
+          variant="transparent"
+          p={0}
+          onClick={open}
+        >
+          パスワードをお忘れですか？
+        </Button>
 
         <div className={styles.buttonGroup}>
           <button formAction={login} className={styles.primaryButton}>
@@ -95,9 +130,9 @@ export default async function LoginPage() {
             ログイン
           </button>
 
-          <button formAction={signup} className={styles.secondaryButton}>
+          <Link href="./createAccount" className={styles.secondaryButton}>
             新規登録
-          </button>
+          </Link>
         </div>
       </form>
       <div className={styles.divider}>

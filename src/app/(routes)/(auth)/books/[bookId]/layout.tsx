@@ -27,6 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className={`${styles.container} ${isNavOpen ? styles.navOpen : ""}`}>
       <Button
         variant="transparent"
+        px="xs"
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
