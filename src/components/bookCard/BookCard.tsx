@@ -1,16 +1,22 @@
 "use client";
 import { BookViewData } from "@/types";
 import styles from "./bookCard.module.css";
-import { Calendar, Edit, Ellipsis } from "lucide-react";
+import { Calendar, Check, Edit, Ellipsis, User } from "lucide-react";
 import Link from "next/link";
-import { Button, Menu } from "@mantine/core";
+import { Button, Card, Grid, Group, Menu, Text } from "@mantine/core";
 import BookDelete from "@/service/bookDelete/BookDelete";
 import { useRouter } from "next/navigation";
 
 export const BookCard = (props: { book: BookViewData }) => {
   const router = useRouter();
   return (
-    <div className={`${styles.bookCard}`}>
+    <Card
+      className={styles.bookCard}
+      p={"1rem"}
+      h={230}
+      radius={"xs"}
+      shadow={"sm"}
+    >
       <Link
         href={`/books/${props.book.id}`}
         aria-labelledby={`title-${props.book.id}`}
@@ -24,7 +30,7 @@ export const BookCard = (props: { book: BookViewData }) => {
             position="bottom-end"
           >
             <Menu.Target>
-              <Ellipsis onClick={(e) => e.preventDefault()} />
+              <Ellipsis size={20} onClick={(e) => e.preventDefault()} />
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Item component="div">
@@ -47,33 +53,47 @@ export const BookCard = (props: { book: BookViewData }) => {
           </Menu>
         </div>
         {/* ヘッダー情報 */}
-        <div className={`${styles.bookInfo_header}`}>
-          <div className={`${styles.primaryInfo}`}>
-            <div className={`${styles.book_title}`}>
-              <span>{props.book.title}</span>
-            </div>
-            <span className={`${styles.book_author}`}>{props.book.author}</span>
-          </div>
-          <div
-            className={`${styles.secondaryInfo}`}
-            style={
-              !props.book.dueDate ? { display: "none" } : { display: "block" }
-            }
-          >
-            <Calendar size={16} className={`${styles.dueDate_calender_icon}`} />
-            <span className={`${styles.dueDate_text}`}>
-              {new Date(props.book.dueDate).toLocaleDateString("ja-JP")}
-            </span>
-          </div>
-        </div>
-        {/* 基本情報 */}
-        <div className={`${styles.bookInfo_base}`}>
-          <div className={`${styles.bookCard_status}`}>
-            {props.book.returned ? "返却済み" : "未返却"}
-          </div>
-          <div className={`${styles.bookInfo_review}`}>{props.book.review}</div>
-        </div>
+        <Text c={"dark"} fw={"bolder"} size={"xl"} mb={"sm"}>
+          {props.book.title}
+        </Text>
+        <Grid mb={"lg"}>
+          <Grid.Col span={12} py={0}>
+            <Group gap={5}>
+              <User size={18} color={"var(--mantine-color-dark-text)"} />
+              <Text c={"dark"} size={"md"}>
+                {props.book.author}
+              </Text>
+            </Group>
+          </Grid.Col>
+          <Grid.Col span={12} py={0}>
+            <Group
+              gap={5}
+              style={!props.book.dueDate ? { display: "none" } : {}}
+            >
+              <Calendar size={18} color={"var(--mantine-color-dark-text)"} />
+              <Group gap={"8"}>
+                <Text c={"dark"} size={"md"}>
+                  {new Date(props.book.dueDate).toLocaleDateString("ja-JP")}
+                </Text>
+                <Group align="center" gap={0}>
+                  {props.book.returned && (
+                    <>
+                      <Text size="sm" c="#82c91e">
+                        返却済み
+                      </Text>
+                      <Check size={15} color="#82c91e" />
+                    </>
+                  )}
+                </Group>
+              </Group>
+            </Group>
+          </Grid.Col>
+        </Grid>
+        {/* ブック感想 */}
+        <Text c={"dark"} size={"md"} lineClamp={5} lh={1.3}>
+          {props.book.review}
+        </Text>
       </Link>
-    </div>
+    </Card>
   );
 };

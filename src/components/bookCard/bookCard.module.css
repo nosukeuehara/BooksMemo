@@ -1,10 +1,5 @@
 .bookCard {
-  padding: 1rem;
-  border-radius: var(--mantine-radius-s);
-  background-color: var(--mantine-color-white);
-  box-shadow: var(--mantine-shadow-sm);
   transition: all 0.2s ease-in-out;
-  height: 230px;
   position: relative;
 }
 
@@ -19,21 +14,8 @@
   align-items: flex-end;
 }
 
-.dueDate_calender_icon {
-  color: var(--mantine-color-grape-6);
-}
-
 .book_title {
-  font-size: var(--mantine-font-size-xl);
-  font-weight: bold;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  transition: opacity 0.3s ease;
-  position: relative;
-  width: 80%;
+  transition: all 0.7s ease;
 }
 
 .book_title:hover {
@@ -42,16 +24,13 @@
   text-underline-offset: 0.2rem;
 }
 
-.book_author {
-  font-size: var(--mantine-font-size-sm);
-}
-
 .secondaryInfo {
   display: flex;
   align-items: center;
 }
 
 .dueDate_text {
+  padding-left: 0.5rem;
   font-size: var(--mantine-font-size-md);
 }
 
@@ -65,17 +44,8 @@
   flex-direction: column;
 }
 
-.bookInfo_review {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
-  font-size: var(--mantine-font-size-l);
-  height: calc(var(--mantine-font-size-l) * 3);
-}
-
 .menu_ellipsis {
   position: absolute;
   right: 1rem;
+  color: #222;
 }

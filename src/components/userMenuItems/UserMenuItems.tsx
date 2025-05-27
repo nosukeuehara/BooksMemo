@@ -17,18 +17,19 @@ export function UserMenuItems({ userInfo }: { userInfo: UserInfo }) {
           e.stopPropagation();
           router.push("/profile");
         }}
-        leftSection={<UserRoundPen size={14} />}
+        leftSection={<UserRoundPen size={14} color="#2e2e2e" />}
+        c={"#2e2e2e"}
       >
         プロフィール
       </Menu.Item>
       <Menu.Item
-        leftSection={<LogOut size={18} color="red" />}
+        leftSection={<LogOut size={18} color="#fa5252" />}
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
           signout();
         }}
-        color="red"
+        c={"#fa5252"}
       >
         SignOut
       </Menu.Item>

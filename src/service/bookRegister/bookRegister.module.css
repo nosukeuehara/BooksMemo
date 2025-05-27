@@ -4,10 +4,17 @@
 
 .label {
   color: #666;
+  font-weight: 700;
 }
 
 .error {
   color: red;
   font-size: 0.8rem;
   margin-top: 0.5rem;
+}
+
+.registerBookForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

@@ -4,8 +4,9 @@ import {
   Button,
   Group,
   Input,
-  Switch,
   Textarea,
+  Text,
+  Checkbox,
   Notification,
 } from "@mantine/core";
 import styles from "./editor.module.css";
@@ -16,6 +17,7 @@ import { Book } from "@prisma/client";
 import { _createBrowserClient } from "@/lib/supabase/client";
 import { actionUpdateBookInfo } from "./actions";
 import { BookCheck } from "lucide-react";
+import { useMediaQuery } from "@mantine/hooks";
 
 const Editor = ({ book }: { book: BookViewData }) => {
   const user = _createBrowserClient();
@@ -23,14 +25,15 @@ const Editor = ({ book }: { book: BookViewData }) => {
   const [title, setTitle] = useState(book.title);
   const [author, setAuthor] = useState(book.author);
   const [value, setValue] = useState<[Date | null, Date | null]>([
-    new Date(book.borrowedDate),
-    new Date(book.dueDate),
+    book.borrowedDate ? new Date(book.borrowedDate) : null,
+    book.dueDate ? new Date(book.dueDate) : null,
   ]);
   const [review, setReview] = useState(book.review);
   const [checked, setChecked] = useState(book.returned);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const matchesMaxWidth768 = useMediaQuery("(max-width: 768px)");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,8 +53,8 @@ const Editor = ({ book }: { book: BookViewData }) => {
         id: book.id,
         title,
         author,
-        borrowedDate: value[0] as Date,
-        dueDate: value[1] as Date,
+        borrowedDate: value[0] ? value[0] : null,
+        dueDate: value[1] ? value[1] : null,
         returned: checked,
         review: review || null,
         userId: (await user.auth.getUser()).data.user!.id,
@@ -107,50 +110,92 @@ const Editor = ({ book }: { book: BookViewData }) => {
       </div>
 
       <form onSubmit={handleSubmit} className={`${styles.editorForm}`}>
-        <Switch
-          labelPosition="left"
-          label={checked ? "返却済み" : "未返却"}
-          size="md"
-          checked={checked}
-          onChange={(event) => setChecked(event.currentTarget.checked)}
-        />
         <div>
-          <Input.Wrapper label="タイトル">
-            <Input
-              size="lg"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </Input.Wrapper>
-        </div>
-        <div>
-          <Input.Wrapper label="著者名">
-            <Input
-              size="md"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-          </Input.Wrapper>
-        </div>
-        <div>
-          <DatePickerInput
-            label="期間"
-            size="md"
-            type="range"
-            locale="ja"
-            valueFormat="YYYY/MM/DD"
-            value={value}
-            onChange={setValue}
+          <label className={styles.label}>タイトル※</label>
+          <Input
+            variant="unstyled"
+            size="lg"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            styles={{
+              input: {
+                fontSize: "1rem",
+                color: "#2e2e2e",
+                height: "1rem",
+              },
+            }}
           />
         </div>
         <div>
+          <label className={styles.label}>著者※</label>
+          <Input
+            variant="unstyled"
+            size={matchesMaxWidth768 ? "md" : "lg"}
+            placeholder={"著者を入力"}
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            styles={{
+              input: {
+                fontSize: "1rem",
+                color: "#2e2e2e",
+              },
+            }}
+          />
+        </div>
+        <div>
+          <label className={styles.label}>貸出日と返却日</label>
+          <DatePickerInput
+            clearable
+            dropdownType="modal"
+            size={matchesMaxWidth768 ? "sm" : "lg"}
+            variant="unstyled"
+            type="range"
+            locale="ja"
+            valueFormat="YYYY/MM/DD"
+            placeholder={"YYYY/MM/DD ~ YYYY/MM/DD"}
+            value={value}
+            onChange={setValue}
+            styles={{
+              input: {
+                fontSize: "1rem",
+                padding: "0rem",
+                color: "#2e2e2e",
+              },
+            }}
+          />
+        </div>
+        <Group gap={"xs"} display={"flex"} align={"center"}>
+          <Text c={"#666"} fw={"bold"}>
+            {/* {checked ? "返却済み" : "未返却"} */}
+            返却済み
+          </Text>
+          <Checkbox
+            labelPosition="left"
+            size="sm"
+            radius={0}
+            checked={checked}
+            onChange={(event) => setChecked(event.currentTarget.checked)}
+          ></Checkbox>
+        </Group>
+        <div>
+          <label className={styles.label}>感想</label>
           <Textarea
-            label="感想"
             autosize
             minRows={7}
-            size="md"
+            variant="unstyled"
+            classNames={{
+              input: styles.reviewArea__padding,
+            }}
+            size={matchesMaxWidth768 ? "md" : "lg"}
+            placeholder={"感想を入力してみよう"}
             value={review ? review : ""}
             onChange={(e) => setReview(e.target.value)}
+            styles={{
+              input: {
+                fontSize: "1rem",
+                color: "#2e2e2e",
+              },
+            }}
           />
         </div>
       </form>

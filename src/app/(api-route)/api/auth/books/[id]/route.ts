@@ -113,8 +113,8 @@ export async function PUT(
       data: {
         title,
         author,
-        borrowedDate: new Date(borrowedDate),
-        dueDate: new Date(dueDate),
+        borrowedDate: borrowedDate ? new Date(borrowedDate) : null,
+        dueDate: dueDate ? new Date(dueDate) : null,
         review,
         returned,
       },

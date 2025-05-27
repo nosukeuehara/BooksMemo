@@ -2,6 +2,7 @@
 import { BookViewData } from "@/types";
 import styles from "./styles.module.css";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function SideNav({
   books,
@@ -25,14 +26,14 @@ export function SideNav({
       <div className={styles.bookGallery}>
         {books.map((book) => {
           return (
-            <a
-              href={book.id}
+            <Link
+              href={`/books/${book.id}`}
               key={book.id}
               className={book.id === pathname ? styles.selected : ""}
             >
               <p className={styles.bookTitle}>{book.title}</p>
               <p className={styles.bookAuthor}>{book.author}</p>
-            </a>
+            </Link>
           );
         })}
       </div>

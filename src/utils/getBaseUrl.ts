@@ -9,8 +9,7 @@ export const getBaseUrl = async (isServer: boolean) => {
       const protocol = headersList.get('x-forwarded-proto') || 'http'
       return `${protocol}://${host}`
     } catch (error) {
-      console.error('Error getting base URL:', error)
-      // headers()が使えない場合のフォールバック
+      console.error('Error getting base URL:', error);
       return process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     }
   } else {
