@@ -22,6 +22,7 @@ export async function fetchAllBooks(): Promise<BookViewData[]> {
         ).data.session?.access_token
           }`,
       },
+      cache: "force-cache"
     });
 
     return await response.json();
@@ -49,6 +50,7 @@ export async function fetchBookById(bookId: string): Promise<BookViewData> {
         ).data.session?.access_token
           }`,
       },
+      cache: "force-cache"
     })
     return response.json()
   } catch (error) {

@@ -14,6 +14,7 @@ export async function fetchUserProfile() {
           await supabase.auth.getSession()
         ).data.session?.access_token}`,
       },
+      cache: "force-cache"
     });
 
     if (!response.ok) {
