@@ -4,6 +4,7 @@ import { BookViewData } from "@/types";
 import { cacheTags } from "@/utils/cacheTags";
 import { getBaseUrl } from "@/utils/getBaseUrl";
 import { Book } from "@prisma/client";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 /**
@@ -13,6 +14,9 @@ import { NextResponse } from "next/server";
 export async function fetchAllBooks(): Promise<BookViewData[]> {
   const supabase = typeof window === 'undefined' ? await _createServerClient() : await _createBrowserClient()
   const isServer = typeof window === 'undefined'
+  if (isServer) {
+    revalidateTag(cacheTags.UPDATE_BOOKDATA)
+  }
   try {
     const response = await fetch(`${await getBaseUrl(isServer)}/api/auth/books`, {
       method: "GET",
@@ -41,6 +45,9 @@ export async function fetchAllBooks(): Promise<BookViewData[]> {
 export async function fetchBookById(bookId: string): Promise<BookViewData> {
   const supabase = typeof window === 'undefined' ? await _createServerClient() : await _createBrowserClient()
   const isServer = typeof window === 'undefined'
+  if (isServer) {
+    revalidateTag(cacheTags.UPDATE_BOOKDATA)
+  }
   try {
     const response = await fetch(`${await getBaseUrl(isServer)}/api/auth/books/${bookId}`, {
       method: "GET",
