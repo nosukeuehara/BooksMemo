@@ -2,14 +2,10 @@ import { _createServerClient } from "@/lib/supabase/server";
 import { cacheTags } from "@/utils/cacheTags";
 import { getBaseUrl } from "@/utils/getBaseUrl";
 import { User } from "@prisma/client";
-import { revalidateTag } from "next/cache";
 
 export async function fetchUserProfile() {
   const supabase = await _createServerClient();
   const isServer = typeof window === 'undefined'
-  if (isServer) {
-    revalidateTag(cacheTags.UPDATE_PROFILE)
-  }
   try {
     const response = await fetch(`${await getBaseUrl(isServer)}/api/auth/profile`, {
       method: "GET",

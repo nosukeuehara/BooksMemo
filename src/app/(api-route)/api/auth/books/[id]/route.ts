@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { _createServerClient } from "@/lib/supabase/server";
+import { revalidateTag } from "next/cache";
+import { cacheTags } from "@/utils/cacheTags";
 
 // Helper function to check book ownership
 async function checkBookOwnership(bookId: string, userEmail: string) {
@@ -26,6 +28,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  revalidateTag(cacheTags.UPDATE_BOOKDATA)
   try {
     const { id } = await params;
 

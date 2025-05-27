@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { _createServerClient } from "@/lib/supabase/server";
+import { revalidateTag } from "next/cache";
+import { cacheTags } from "@/utils/cacheTags";
 
 // ユーザープロファイル取得
 export async function GET(request: NextRequest) {
+  revalidateTag(cacheTags.UPDATE_PROFILE)
   try {
     const token = request.headers.get('Authorization')?.split('Bearer ')[1];
 
