@@ -1,4 +1,5 @@
 import { _createServerClient } from "@/lib/supabase/server";
+import { cacheTags } from "@/utils/cacheTags";
 import { getBaseUrl } from "@/utils/getBaseUrl";
 import { User } from "@prisma/client";
 
@@ -14,6 +15,7 @@ export async function fetchUserProfile() {
           await supabase.auth.getSession()
         ).data.session?.access_token}`,
       },
+      cache: "no-cache"
     });
 
     if (!response.ok) {
@@ -51,6 +53,7 @@ export async function updateUserProfile(updataData: { name: string }) {
       body: JSON.stringify({
         name: updataData.name.trim(),
       }),
+      next: { tags: [cacheTags.UPDATE_PROFILE] }
     });
 
     if (!response.ok) {
