@@ -2,6 +2,7 @@
 import { deleteBookById } from "@/lib/api/auth/book"
 import { revalidatePath } from "next/cache"
 
+//TODO：削除の際に処理が重いので楽観的UI更新をする。
 export async function actionDeleteBook(bookId: string) {
   try {
     const response = await deleteBookById(bookId);
