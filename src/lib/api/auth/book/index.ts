@@ -1,8 +1,10 @@
 import { _createBrowserClient } from "@/lib/supabase/client";
 import { _createServerClient } from "@/lib/supabase/server";
 import { BookViewData } from "@/types";
+import { cacheTags } from "@/utils/cacheTags";
 import { getBaseUrl } from "@/utils/getBaseUrl";
 import { Book } from "@prisma/client";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 /**
@@ -12,6 +14,7 @@ import { NextResponse } from "next/server";
 export async function fetchAllBooks(): Promise<BookViewData[]> {
   const supabase = typeof window === 'undefined' ? await _createServerClient() : await _createBrowserClient()
   const isServer = typeof window === 'undefined'
+  revalidateTag(cacheTags.UPDATE_BOOKDATA);
   try {
     const response = await fetch(`${await getBaseUrl(isServer)}/api/auth/books`, {
       method: "GET",
@@ -75,6 +78,7 @@ export async function registBookData(registBookData: { title: string, author: st
       body: JSON.stringify({
         ...registBookData
       }),
+      next: { tags: [cacheTags.UPDATE_BOOKDATA] }
     })
 
     return response.json()
@@ -107,7 +111,8 @@ export async function updateBookData(bookData: Book): Promise<BookViewData> {
       },
       body: JSON.stringify({
         ...bookData
-      })
+      }),
+      next: { tags: [cacheTags.UPDATE_BOOKDATA] }
     })
     return response.json()
   } catch (error) {
@@ -138,6 +143,7 @@ export async function deleteBookById(bookId: string): Promise<NextResponse<{
         ).data.session?.access_token
           }`,
       },
+      next: { tags: [cacheTags.UPDATE_BOOKDATA] }
     })
     return response.json()
   } catch (error) {
