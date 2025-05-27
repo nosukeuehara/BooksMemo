@@ -27,6 +27,7 @@ export const BookCard = (props: { book: BookViewData }) => {
             trigger="click-hover"
             openDelay={100}
             closeDelay={400}
+            zIndex={0}
             position="bottom-end"
           >
             <Menu.Target>

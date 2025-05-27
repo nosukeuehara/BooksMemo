@@ -12,17 +12,19 @@ export function UserMenuItems({ userInfo }: { userInfo: UserInfo }) {
       <Menu.Label>{userInfo.email}</Menu.Label>
       <Menu.Divider />
       <Menu.Item
+        component="button"
+        leftSection={<UserRoundPen size={18} />}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
           router.push("/profile");
         }}
-        leftSection={<UserRoundPen size={14} color="#2e2e2e" />}
         c={"#2e2e2e"}
       >
         プロフィール
       </Menu.Item>
       <Menu.Item
+        component="button"
         leftSection={<LogOut size={18} color="#fa5252" />}
         onClick={(e) => {
           e.stopPropagation();
